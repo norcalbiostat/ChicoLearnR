@@ -1,0 +1,257 @@
+---
+title: "Section 1 Introduction to R"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library('leaflet')
+library('learnr')
+library('checkr')
+```
+
+## Arithmetic
+
+### R is an overgrown calculator.
+
+Type the following in the code box below and hit <kbd>`Run code`</kbd> to *run* these commands one at a time.
+
+``` r
+1+1
+4-3
+3*7
+8/3
+2^3
+pi^2
+```
+
+```{r calculatorexcerices1, exercise = TRUE}
+    
+```
+
+There are many built in functions in R such as `log` or `exp`. Using these functions in R is not much different than using them on your calculator. The function `log` has two arguments, one is required and one is set to a default, $log_{b}(x)$ where *b* is the base. The default is *b* which is set to `exp(1)` (i.e. the natural logarithm).
+
+### You try it
+
+Below are some examples of built in functions in R. Run them from the code box below.
+
+``` r
+exp(2)
+log(8)
+log(8,base=2)
+```
+
+```{r youtryit1, exercise = TRUE}
+    
+```
+
+Now lets try a more complicated equation.
+
+```{r calculatorexample_error1, exercise = TRUE, exercise.eval = FALSE,error=TRUE}
+2 + 5*(8^3)- 3*log10)
+```
+
+::: {#calculatorexample_error1-hint}
+Uh oh, we got an Error. Nothing to worry about, errors happen all the time. Put a open parenthesis `(` before the `10` in `log10` to fix it and try again.
+:::
+
+
+### Storing results
+
+Most of the time we will want to save our results. To do so we use the *assignment operator* `<-` notation. This lets us save a value into an *object*, which we can then use later similar to a variable $x$ in algebra. The code has ran successfully if you do not receive any messages.
+
+```{r objectrexcerices1, exercise = TRUE}
+ height <- 62
+```
+
+
+Assigned objects aren't printed automatically, you must either enter the name of the object, or wrap the command in parenthesis. Run the code below to see the objects printed.
+
+
+```{r objectrexcerices2, exercise = TRUE}
+(height <- 62)
+height
+```
+
+
+### You try it
+
+Run each of the following commands in the code box. Print out the value of `height` after each time. What happens?
+
+``` r
+height<-62
+(height <- height + 2)
+```
+```r
+height<-62
+(height <- 3 * height)
+```
+
+```{r youtryit2, exercise = TRUE}
+
+```
+
+
+## Vectors
+
+A vector is a list of values in order to be able to work with them. For us they will usually represent data collected on a characteristic of the population. In general, we want to give the vector a name so that we can call it later when needed. 
+
+Vector of the first 5 primes
+```{r vectors1, exercise = TRUE}
+primes <- c(2,3,5,7,11)
+primes
+```
+
+Sequence of odd numbers from 1 to 10, 
+```{r vectors2, exercise = TRUE}
+(odds <- seq(1, 10, by=2))
+```
+
+We can use the `rep` function to repeat a sequence of numbers in varying patterns. Type`?rep` in the code box and hit <kbd>`Run code`</kbd> for a text explanation of the differences. 
+
+```{r vectors3, exercise = TRUE}
+
+```
+
+Now, run the following commands. 
+
+```{r vectors4, exercise = TRUE}
+rep(c(2,3), times=c(4,3))
+rep(c(2,3), each=2)
+rep(c(2, 3), length.out = 3)
+```
+
+The vector does not have to be numerical if we use quotes around the word
+```{r vectors5, exercise = TRUE}
+rep(c("Bryan", "Darrin"), each = 2)
+```
+
+### Indexing vectors
+
+We can index vectors to pull off values at a particular position on a vector.
+
+Returns first and second number of the vector "primes".
+```{r vectors6, exercise = TRUE}
+primes <- c(2,3,5,7,11)
+primes[1]
+primes[2]
+```
+
+Returns first three numbers of a vector
+```{r vectors7, exercise = TRUE}
+primes <- c(2,3,5,7,11)
+primes[1:3]
+```
+
+We can change a vector to TRUE and FALSE by writing a logical statement. 
+
+```{r vectors8, exercise = TRUE}
+primes <- c(2,3,5,7,11)
+primes>6
+```
+
+This is super useful to do things like identify the numbers in primes that are greater than 6
+```{r vectors9, exercise = TRUE}
+primes <- c(2,3,5,7,11)
+primes[primes>6]
+```
+
+And count the number of primes greater than 6
+```{r vectors10, exercise = TRUE}
+primes <- c(2,3,5,7,11)
+sum(primes>6)
+```
+
+## Logical Operators
+
+Is 4 a prime? 
+```{r log1, exercise = TRUE}
+primes <- c(2,3,5,7,11)
+primes[primes == 4]
+```
+
+Another way to see if a value is contained inside a vector is using the `%in%` operator. 
+
+```{r log2, exercise = TRUE}
+primes <- c(2,3,5,7,11)
+4 %in% primes
+```
+
+This works to compare each elements of a vector. Here it's returning TRUE and FALSE for each element in `odds`, on whether or not it is also an element of `primes`.
+
+```{r log3, exercise = TRUE}
+ primes <- c(2,3,5,7,11)
+odds %in% primes
+```
+
+
+### TRUE and FALSE as binary indicators
+
+What's cool about TRUE and FALSE, is that TRUE resolves as 1 and FALSE resolves as 0 when doing arithmetic. 
+How many odd numbers are prime (in our given vectors)
+```{r log4, exercise = TRUE}
+ primes <- c(2,3,5,7,11)
+sum(odds %in% primes)
+```
+
+
+### AND and OR
+
+Often we will want to find out if two events are true at the same time, or if at least one of them is true. Using parenthesis to help keep our statements organized, we can ask multiple logical statements at the same time using either AND `&` or OR `|`
+
+Is 9 an odd prime? 
+
+```{r andor1, exercise = TRUE}
+ primes <- c(2,3,5,7,11)
+(9 %in% odds) & (9 %in% primes)
+```
+
+
+### You try it
+
+
+Is 9 an odd or a prime? 
+```{r andor2, exercise = TRUE}
+ primes <- c(2,3,5,7,11)
+(9 %in% odds) | (9 %in% primes)
+```
+
+
+## Plotting
+
+For starters we are going to stick with the simple plotting method in R, namely the `plot` function. Short and simple, the arguments are `plot(x, y)`
+
+```{r plot1, exercise = TRUE}
+x <- -10:10
+y <- x^2
+plot(x, y)
+```
+
+The default is to just plot the points, but sometimes we may want to connect those points with a line (`l` is a lower case L). Type `?plot` in the code box for more plotting types. 
+
+```{r plot2, exercise = TRUE}
+x <- -10:10
+y <- x^2
+plot(x, y, type='l')
+```
+
+
+### You try it
+Create a plot of $y = log(x+1)$ where $x$ is a sequence of non-negative numbers from $a$ to $b$ and YOU get to choose $a$ and $b$. 
+
+```{r plot3, exercise = TRUE}
+
+```
+
+
+ want hint here?
+
+
+
+
+
+
+
+
+
+
