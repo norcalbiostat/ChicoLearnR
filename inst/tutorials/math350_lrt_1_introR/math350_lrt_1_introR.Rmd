@@ -1,20 +1,43 @@
 ---
 title: "Section 1 Introduction to R"
-output: learnr::tutorial
+output: 
+    learnr::tutorial:
+      progressive: true
+      allow_skip: true
 runtime: shiny_prerendered
+description: > 
+  Introduction to the R language and how it will be used for this class. 
 ---
 
 ```{r setup, include=FALSE}
-library('leaflet')
-library('learnr')
-library('checkr')
+library(learnr)
+library(gradethis)
+library(learnrhash)
 ```
 
-## Arithmetic
+## Hello Math 350!
 
-### R is an overgrown calculator.
+These tutorials were created by Dr. Donatello with the help of Faith Fitchen and Aldo Perez as a way for students to learn and get practice working with R in an interactive format. These tutorials follow the course packet, and your progress will be saved even if you close down R studio. 
 
-Type the following in the code box below and hit <kbd>`Run code`</kbd> to *run* these commands one at a time.
+### Navigating the tutorial. 
+Each code chunk runs independently, you can get a hint or start over on any question. You can reset your progress on the entire tutorial by clicking "Start Over" in the left sidebar menu. 
+
+For best viewing while working in the tutorials, maximize the tutorial viewer window while you work. 
+
+### A learning resource
+Although not required, for best results you should have your course packet handy while working through these tutorials. There will be embedded quizzes and checks for understanding along the way. 
+
+At the end of each tutorial you will submit your assignment using a hash code that you will generate and submit via Google Forms - all from within the tutorial. These will be reviewed by the instructional team and scored. 
+
+Questions? Confused? Not sure how to start? Ask your questions in our Discord channel. The link to join is in the syllabus. 
+
+### Knowledge check
+
+write a quiz here to check if they read the above information. 
+
+## Basic Math
+
+Type the following in the code box below and hit <kbd>Run code</kbd> to *run* these commands one at a time. This is also known as _submitting_ commands. 
 
 ``` r
 1+1
@@ -31,8 +54,6 @@ pi^2
 
 There are many built in functions in R such as `log` or `exp`. Using these functions in R is not much different than using them on your calculator. The function `log` has two arguments, one is required and one is set to a default, $log_{b}(x)$ where *b* is the base. The default is *b* which is set to `exp(1)` (i.e. the natural logarithm).
 
-### You try it
-
 Below are some examples of built in functions in R. Run them from the code box below.
 
 ``` r
@@ -45,7 +66,9 @@ log(8,base=2)
     
 ```
 
-Now lets try a more complicated equation.
+### Common errors
+
+Math errors and typos are common. The error messages in R aren't always clear. Run the code below to see the error message, then fix the code to remove the error. 
 
 ```{r calculatorexample_error1, exercise = TRUE, exercise.eval = FALSE,error=TRUE}
 2 + 5*(8^3)- 3*log10)
@@ -55,8 +78,12 @@ Now lets try a more complicated equation.
 Uh oh, we got an Error. Nothing to worry about, errors happen all the time. Put a open parenthesis `(` before the `10` in `log10` to fix it and try again.
 :::
 
+Here is another example of a common error. 
+```{r calculatorexample_error2, exercise = TRUE, exercise.eval = FALSE,error=TRUE}
+2 + 5(3)
+```
 
-### Storing results
+## Storing results
 
 Most of the time we will want to save our results. To do so we use the *assignment operator* `<-` notation. This lets us save a value into an *object*, which we can then use later similar to a variable $x$ in algebra. The code has ran successfully if you do not receive any messages.
 
@@ -65,25 +92,21 @@ Most of the time we will want to save our results. To do so we use the *assignme
 ```
 
 
-Assigned objects aren't printed automatically, you must either enter the name of the object, or wrap the command in parenthesis. Run the code below to see the objects printed.
+Assigned objects aren't printed automatically. You can wrap the command in parenthesis to have R print out the results. Run the code below to see the objects printed.
 
 
 ```{r objectrexcerices2, exercise = TRUE}
 (height <- 62)
-height
 ```
 
 
 ### You try it
 
-Run each of the following commands in the code box. Print out the value of `height` after each time. What happens?
+Type each of the following commands in the code box. Print out the value of `height` after each time. What happens?
 
 ``` r
 height<-62
 (height <- height + 2)
-```
-```r
-height<-62
 (height <- 3 * height)
 ```
 
@@ -96,10 +119,9 @@ height<-62
 
 A vector is a list of values in order to be able to work with them. For us they will usually represent data collected on a characteristic of the population. In general, we want to give the vector a name so that we can call it later when needed. 
 
-Vector of the first 5 primes
+We use the `c()` function to _combine_ numbers into a vector. 
 ```{r vectors1, exercise = TRUE}
-primes <- c(2,3,5,7,11)
-primes
+(a <- c(1,3,6,8,9))
 ```
 
 Sequence of odd numbers from 1 to 10, 
@@ -107,7 +129,7 @@ Sequence of odd numbers from 1 to 10,
 (odds <- seq(1, 10, by=2))
 ```
 
-We can use the `rep` function to repeat a sequence of numbers in varying patterns. Type`?rep` in the code box and hit <kbd>`Run code`</kbd> for a text explanation of the differences. 
+We can use the `rep` function to repeat a sequence of numbers in varying patterns. Type`?rep` in the code box and hit <kbd>Run code</kbd> for a text explanation of the differences. 
 
 ```{r vectors3, exercise = TRUE}
 
@@ -126,6 +148,13 @@ The vector does not have to be numerical if we use quotes around the word
 rep(c("Bryan", "Darrin"), each = 2)
 ```
 
+### You try it
+Use the `c()` function to create a vector of the first 5 primes
+```{r vectors-yti1}
+
+```
+
+
 ### Indexing vectors
 
 We can index vectors to pull off values at a particular position on a vector.
@@ -138,16 +167,16 @@ primes[2]
 ```
 
 Returns first three numbers of a vector
-```{r vectors7, exercise = TRUE}
+```{r vectors7, exercise = TRUE, echo=-1}
 primes <- c(2,3,5,7,11)
 primes[1:3]
 ```
 
 We can change a vector to TRUE and FALSE by writing a logical statement. 
 
-```{r vectors8, exercise = TRUE}
+```{r vectors8, exercise = TRUE, echo=-1}
 primes <- c(2,3,5,7,11)
-primes>6
+primes > 6
 ```
 
 This is super useful to do things like identify the numbers in primes that are greater than 6
@@ -165,22 +194,22 @@ sum(primes>6)
 ## Logical Operators
 
 Is 4 a prime? 
-```{r log1, exercise = TRUE}
+```{r log1, exercise = TRUE, echo=-1}
 primes <- c(2,3,5,7,11)
 primes[primes == 4]
 ```
 
 Another way to see if a value is contained inside a vector is using the `%in%` operator. 
 
-```{r log2, exercise = TRUE}
+```{r log2, exercise = TRUE, echo=-1}
 primes <- c(2,3,5,7,11)
 4 %in% primes
 ```
 
 This works to compare each elements of a vector. Here it's returning TRUE and FALSE for each element in `odds`, on whether or not it is also an element of `primes`.
 
-```{r log3, exercise = TRUE}
- primes <- c(2,3,5,7,11)
+```{r log3, exercise = TRUE, echo=-1}
+primes <- c(2,3,5,7,11)
 odds %in% primes
 ```
 
@@ -189,8 +218,8 @@ odds %in% primes
 
 What's cool about TRUE and FALSE, is that TRUE resolves as 1 and FALSE resolves as 0 when doing arithmetic. 
 How many odd numbers are prime (in our given vectors)
-```{r log4, exercise = TRUE}
- primes <- c(2,3,5,7,11)
+```{r log4, exercise = TRUE, echo=-1}
+primes <- c(2,3,5,7,11)
 sum(odds %in% primes)
 ```
 
@@ -216,7 +245,6 @@ Is 9 an odd or a prime?
 (9 %in% odds) | (9 %in% primes)
 ```
 
-
 ## Plotting
 
 For starters we are going to stick with the simple plotting method in R, namely the `plot` function. Short and simple, the arguments are `plot(x, y)`
@@ -237,17 +265,29 @@ plot(x, y, type='l')
 
 
 ### You try it
-Create a plot of $y = log(x+1)$ where $x$ is a sequence of non-negative numbers from $a$ to $b$ and YOU get to choose $a$ and $b$. 
+Create a plot of $y = log(x+1)$ where $x$ is a sequence of non-negative numbers from $a$ to $b$ and YOU get to choose $a$ and $b$. Define x using the `seq` function to generate 100 numbers between a and b. 
 
 ```{r plot3, exercise = TRUE}
 
 ```
 
 
- want hint here?
 
+## Submit your work
+Part of your grade in this class comes from submitting tutorial work like this. 
 
+Click the <kbd>Generate</kbd> button below to generate a hash for you assignment. This long string of numbers is a unique code for you, and this assignment. 
 
+Paste this code into the Google Form below to submit your hash to the instructional team for scoring. You also have the opportunity to provide feedback and thoughts about the specific lesson. This is valuable information for the instructional team to know what topics were confusing for students or where extra help is needed. 
+
+```{r context="server"}
+encoder_logic(strip_output=TRUE)
+```
+
+```{r encode, echo=FALSE}
+encoder_ui(ui_before = NULL, 
+           ui_after = iframe_ui(src = "https://docs.google.com/forms/d/e/1FAIpQLSdzre-kmqNje64ZCK7VsXHWKSVdGNOjSUwU1IZaCWs_vL_yuQ/viewform?embedded=true"))
+```
 
 
 
