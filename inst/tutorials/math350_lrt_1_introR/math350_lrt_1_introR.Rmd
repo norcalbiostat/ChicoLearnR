@@ -13,19 +13,37 @@ description: >
 library(learnr)
 library(gradethis)
 library(learnrhash)
+gradethis::gradethis_setup()
+knitr::opts_chunk$set(echo = FALSE)
+tutorial_options(
+  exercise.blanks = TRUE, 
+  exercise.reveal_solution = TRUE
+)
 ```
 
 ## Hello Math 350!
 
-These tutorials were created by Dr. Donatello with the help of Faith Fitchen and Aldo Perez as a way for students to learn and get practice working with R in an interactive format. These tutorials follow the course packet, and your progress will be saved even if you close down R studio. 
+These tutorials were created by Dr. Donatello with the help of Faith Fatchen and Aldo Perez as a way for students to learn and get practice working with R in an interactive format. These tutorials follow the course packet, and your progress will be saved even if you close down R studio. 
 
 ### Navigating the tutorial. 
-Each code chunk runs independently, you can get a hint or start over on any question. You can reset your progress on the entire tutorial by clicking "Start Over" in the left sidebar menu. 
+There is not a lot of explanatory text in these tutorials as it is not meant to be stand alone, but accompanying your course packet. 
 
-For best viewing while working in the tutorials, maximize the tutorial viewer window while you work. 
+You will be presented with places to write code, called code chunks, an example is below. Type in the gray area `2+2` and click 'run code'. 
+
+```{r navigate, exercise = TRUE}
+
+```
+
+Each code chunk runs independently, some code chunks have hints, some are places for you to practice and some have answers for you to submit for a score. 
+
+You can reset your progress on the entire tutorial by clicking "Start Over" in the left sidebar menu.
+
+For best viewing while working in the tutorials, maximize the tutorial viewer window or pop it out into a new window while you work. 
 
 ### A learning resource
-Although not required, for best results you should have your course packet handy while working through these tutorials. There will be embedded quizzes and checks for understanding along the way. 
+For best results you should have your course packet handy while working through these tutorials. There will be embedded quizzes and checks for understanding along the way. 
+
+Your work will be saved along the way, so don't feel pressured to finish it all in one sitting. 
 
 At the end of each tutorial you will submit your assignment using a hash code that you will generate and submit via Google Forms - all from within the tutorial. These will be reviewed by the instructional team and scored. 
 
@@ -33,7 +51,17 @@ Questions? Confused? Not sure how to start? Ask your questions in our Discord ch
 
 ### Knowledge check
 
-write a quiz here to check if they read the above information. 
+```{r infocheck, echo = FALSE}
+question("How will you submit your assignment?",
+         answer("Email the instructor a screenshot"),
+         answer("Export your results and upload to Blackboard Learn"),
+         answer("At the end of each tutorial generate a hash code and submit via Google Forms - all with the tutorial", correct = TRUE),
+         answer("No need it uploads autamatically"),
+        allow_retry = TRUE
+        )
+```
+
+Okay have your course packet open to chapter 1 and let's get going on learning some basics about how to use the R programming language. 
 
 ## Basic Math
 
@@ -49,7 +77,20 @@ pi^2
 ```
 
 ```{r calculatorexcerices1, exercise = TRUE}
-    
+
+```
+
+```{r calculatorexcerices1-check}
+grade_result(
+  pass_if(~ identical(.result, 2), "Good job!"),
+  pass_if(~ identical(.result, 1), "Good job!"),
+  pass_if(~ identical(.result, 7), "Good job!"),
+  pass_if(~ identical(.result, 21), "Good job!"),
+  pass_if(~ identical(.result, 8/3), "Good job!"),
+  pass_if(~ identical(.result, 2), "Good job!"),
+  pass_if(~ identical(.result, 8), "Good job!"),
+  pass_if(~ identical(.result, pi^2), "Good job!")
+)
 ```
 
 There are many built in functions in R such as `log` or `exp`. Using these functions in R is not much different than using them on your calculator. The function `log` has two arguments, one is required and one is set to a default, $log_{b}(x)$ where *b* is the base. The default is *b* which is set to `exp(1)` (i.e. the natural logarithm).
@@ -66,21 +107,44 @@ log(8,base=2)
     
 ```
 
+```{r youtryit1-check}
+grade_result(
+  pass_if(~ identical(.result, exp(2)), "Good job!"),
+  pass_if(~ identical(.result, log(8)), "Good job!"),
+  pass_if(~ identical(.result, log(8,base=2)), "Good job!")
+)
+```
 ### Common errors
 
 Math errors and typos are common. The error messages in R aren't always clear. Run the code below to see the error message, then fix the code to remove the error. 
 
 ```{r calculatorexample_error1, exercise = TRUE, exercise.eval = FALSE,error=TRUE}
-2 + 5*(8^3)- 3*log10)
+2 + 5*(8^3)- 3*(log10)
 ```
 
 ::: {#calculatorexample_error1-hint}
-Uh oh, we got an Error. Nothing to worry about, errors happen all the time. Put a open parenthesis `(` before the `10` in `log10` to fix it and try again.
+Uh oh, we got an Error. Nothing to worry about, errors happen all the time. Put parentheses around the `10` in `log10` to fix it and try again.
 :::
+
+```{r calculatorexample_error1-check}
+grade_result(
+  pass_if(~ identical(.result, 2 + 5*(8^3)- 3*log(10)), "Good job!")
+)
+```
 
 Here is another example of a common error. 
 ```{r calculatorexample_error2, exercise = TRUE, exercise.eval = FALSE,error=TRUE}
 2 + 5(3)
+```
+
+::: {#calculatorexample_error2-hint}
+`R` needs to be told to multiple `5(3)` try putting an `*` in between the `5` and `(3)`.
+:::
+
+```{r calculatorexample_error2-check}
+grade_result(
+  pass_if(~ identical(.result, 17), "Good job!")
+)
 ```
 
 ## Storing results
@@ -91,18 +155,33 @@ Most of the time we will want to save our results. To do so we use the *assignme
  height <- 62
 ```
 
+```{r objectrexcerices1-solution}
+ height <- 62
+```
 
-Assigned objects aren't printed automatically. You can wrap the command in parenthesis to have R print out the results. Run the code below to see the objects printed.
+```{r objectrexcerices1-check}
+grade_code("Good job!")
+```
+
+Assigned objects aren't printed automatically. You can wrap the command in parenthesis to have R print out the results. Run the code below to see the value of height printed.
 
 
 ```{r objectrexcerices2, exercise = TRUE}
 (height <- 62)
 ```
 
+```{r objectrexcerices2-solution}
+(height <- 62)
+```
+
+```{r objectrexcerices2-check}
+grade_code("Keep up the good work!")
+```
 
 ### You try it
+Objects can be overwritten and updated by referring to the object on subsequent lines. In the code box below we set the value of 62 to the object `height`, then 2 is added to height, and then it's multiplied by 3. 
 
-Type each of the following commands in the code box. Print out the value of `height` after each time. What happens?
+Type each of the following commands in the code box below. Print out the value of `height` after each time. What happens to the value of `height` after each command? 
 
 ``` r
 height<-62
@@ -114,63 +193,131 @@ height<-62
 
 ```
 
+::: {#youtryit2-hint}
+You need to define `height <-62` each time. The tutorials do not remember values.
+:::
+
+```{r youtryit2-check}
+grade_result(
+  pass_if(~ identical(.result, 62), "Good job!"),
+  pass_if(~ identical(.result, (62 + 2)), "Good job!"),
+  pass_if(~ identical(.result,  (3*64)), "Good job!"),
+ pass_if(~ identical(.result,  (3*62)), "Good job!")
+)
+```
 
 ## Vectors
 
 A vector is a list of values in order to be able to work with them. For us they will usually represent data collected on a characteristic of the population. In general, we want to give the vector a name so that we can call it later when needed. 
 
-We use the `c()` function to _combine_ numbers into a vector. 
+We use the `c()` function to _combine_ numbers into a vector. Run the code chunk below to see the vector `a` be created.
 ```{r vectors1, exercise = TRUE}
 (a <- c(1,3,6,8,9))
 ```
 
-Sequence of odd numbers from 1 to 10, 
+```{r vectors1-solution}
+(a <- c(1,3,6,8,9))
+```
+
+```{r vectors1-check}
+grade_code("Good job!")
+```
+
+The `seq()` function creates a sequence of numbers. Here we create the sequence of odd numbers from 1 to 10 and store it as the vector `odds`
 ```{r vectors2, exercise = TRUE}
+(odds <- seq(from=1, to=10, by=2))
+```
+
+```{r vectors2-solution}
 (odds <- seq(1, 10, by=2))
 ```
 
-We can use the `rep` function to repeat a sequence of numbers in varying patterns. Type`?rep` in the code box and hit <kbd>Run code</kbd> for a text explanation of the differences. 
-
-```{r vectors3, exercise = TRUE}
-
+```{r vectors2-check}
+grade_code("Nice!")
 ```
 
-Now, run the following commands. 
-
-```{r vectors4, exercise = TRUE}
-rep(c(2,3), times=c(4,3))
-rep(c(2,3), each=2)
-rep(c(2, 3), length.out = 3)
-```
-
-The vector does not have to be numerical if we use quotes around the word
+The vector does not have to be made up of numerical values. If we put quotes around the word it is considered a 'character' data type. 
 ```{r vectors5, exercise = TRUE}
 rep(c("Bryan", "Darrin"), each = 2)
 ```
 
+```{r vectors5-solution}
+rep(c("Bryan", "Darrin"), each = 2)
+```
+
+```{r vectors5-check}
+grade_code()
+```
+
 ### You try it
 Use the `c()` function to create a vector of the first 5 primes
-```{r vectors-yti1}
+```{r vectors_yti1, exercise = TRUE}
 
 ```
 
+```{r vectors_yti1-solution}
+c(2,3,5,7,11)
+```
 
-### Indexing vectors
+```{r vectors_yti1-check}
+grade_code("Nice work!")
+```
 
-We can index vectors to pull off values at a particular position on a vector.
+Re-create the vector of 5 primes, save it as the object `a`. Then on the second line, add 2 to this vector, and print print the results. 
+```{r vectors_yti2, exercise = TRUE}
 
-Returns first and second number of the vector "primes".
-```{r vectors6, exercise = TRUE}
+```
+
+```{r vectors_yti2-solution}
+a <- c(2,3,5,7,11)
+(a+2)
+```
+
+```{r vectors_yti2-check}
+grade_code("Nice work!")
+```
+
+## Indexing vectors
+
+We can index vectors to pull out values at a particular position on a vector using bracket notation `[]`
+
+Type the following in the code chunk below to extract the second number of the vector "primes".
+
+```r
 primes <- c(2,3,5,7,11)
-primes[1]
 primes[2]
 ```
 
-Returns first three numbers of a vector
-```{r vectors7, exercise = TRUE, echo=-1}
+```{r vectors6, exercise = TRUE}
+primes <- c(2,3,5,7,11)
+primes[2]
+```
+
+```{r vectors6-solution}
+primes <- c(2,3,5,7,11)
+primes[2]
+```
+
+```{r vectors6-check}
+grade_code()
+```
+
+You can return multiple values at once. Replace the underscore in the brackets with `1:3` to return the first three numbers of `primes`. 
+```{r vectors7, exercise = TRUE}
+primes <- c(2,3,5,7,11)
+primes[____]
+```
+
+```{r vectors7-solution}
 primes <- c(2,3,5,7,11)
 primes[1:3]
 ```
+
+```{r vectors7-check}
+grade_code()
+```
+
+## Logical Operators
 
 We can change a vector to TRUE and FALSE by writing a logical statement. 
 
@@ -179,10 +326,28 @@ primes <- c(2,3,5,7,11)
 primes > 6
 ```
 
+```{r vectors8-solution}
+primes <- c(2,3,5,7,11)
+primes > 6
+```
+
+```{r vectors8-check}
+grade_code()
+```
+
 This is super useful to do things like identify the numbers in primes that are greater than 6
 ```{r vectors9, exercise = TRUE}
 primes <- c(2,3,5,7,11)
 primes[primes>6]
+```
+
+```{r vectors9-solution}
+primes <- c(2,3,5,7,11)
+primes[primes>6]
+```
+
+```{r vectors9-check}
+grade_code()
 ```
 
 And count the number of primes greater than 6
@@ -191,12 +356,28 @@ primes <- c(2,3,5,7,11)
 sum(primes>6)
 ```
 
-## Logical Operators
+```{r vectors10-solution}
+primes <- c(2,3,5,7,11)
+sum(primes>6)
+```
+
+```{r vectors10-check}
+grade_code()
+```
 
 Is 4 a prime? 
 ```{r log1, exercise = TRUE, echo=-1}
 primes <- c(2,3,5,7,11)
 primes[primes == 4]
+```
+
+```{r log1-solution}
+primes <- c(2,3,5,7,11)
+primes[primes == 4]
+```
+
+```{r log1-check}
+grade_code()
 ```
 
 Another way to see if a value is contained inside a vector is using the `%in%` operator. 
@@ -206,13 +387,32 @@ primes <- c(2,3,5,7,11)
 4 %in% primes
 ```
 
+```{r log2-solution}
+primes <- c(2,3,5,7,11)
+4 %in% primes
+```
+
+```{r log2-check}
+grade_code()
+```
+
 This works to compare each elements of a vector. Here it's returning TRUE and FALSE for each element in `odds`, on whether or not it is also an element of `primes`.
 
 ```{r log3, exercise = TRUE, echo=-1}
 primes <- c(2,3,5,7,11)
+odds <- seq(1, 10, by=2)
 odds %in% primes
 ```
 
+```{r log3-solution}
+primes <- c(2,3,5,7,11)
+odds <- seq(1, 10, by=2)
+odds %in% primes
+```
+
+```{r log3-check}
+grade_code()
+```
 
 ### TRUE and FALSE as binary indicators
 
@@ -220,9 +420,19 @@ What's cool about TRUE and FALSE, is that TRUE resolves as 1 and FALSE resolves 
 How many odd numbers are prime (in our given vectors)
 ```{r log4, exercise = TRUE, echo=-1}
 primes <- c(2,3,5,7,11)
+odds <- seq(1, 10, by=2)
 sum(odds %in% primes)
 ```
 
+```{r log4-solution}
+primes <- c(2,3,5,7,11)
+odds <- seq(1, 10, by=2)
+sum(odds %in% primes)
+```
+
+```{r log4-check}
+grade_code()
+```
 
 ### AND and OR
 
@@ -232,17 +442,41 @@ Is 9 an odd prime?
 
 ```{r andor1, exercise = TRUE}
  primes <- c(2,3,5,7,11)
+odds <- seq(1, 10, by=2)
 (9 %in% odds) & (9 %in% primes)
 ```
 
+```{r andor1-solution}
+ primes <- c(2,3,5,7,11)
+odds <- seq(1, 10, by=2)
+(9 %in% odds) & (9 %in% primes)
+```
+
+```{r andor1-check}
+grade_code()
+```
 
 ### You try it
 
-
-Is 9 an odd or a prime? 
+Is 9 an odd or a prime? Addf the line of code to check.
 ```{r andor2, exercise = TRUE}
- primes <- c(2,3,5,7,11)
+primes <- c(2,3,5,7,11)
+odds <- seq(1, 10, by=2)
+
+```
+
+::: {#andor2-hint}
+Remember `|` means OR. Checkout how we answered the last question.
+:::
+
+```{r andor2-solution}
+primes <- c(2,3,5,7,11)
+odds <- seq(1, 10, by=2)
 (9 %in% odds) | (9 %in% primes)
+```
+
+```{r andor2-check}
+grade_code("You got it!", "Try again! Use the 'hint' if needed!")
 ```
 
 ## Plotting
@@ -255,6 +489,16 @@ y <- x^2
 plot(x, y)
 ```
 
+```{r plot1-solution}
+x <- -10:10
+y <- x^2
+plot(x, y)
+```
+
+```{r plot1-check}
+grade_code()
+```
+
 The default is to just plot the points, but sometimes we may want to connect those points with a line (`l` is a lower case L). Type `?plot` in the code box for more plotting types. 
 
 ```{r plot2, exercise = TRUE}
@@ -263,14 +507,33 @@ y <- x^2
 plot(x, y, type='l')
 ```
 
+```{r plot2-solution}
+x <- -10:10
+y <- x^2
+plot(x, y, type='l')
+```
+
+```{r plot2-check}
+grade_code()
+```
 
 ### You try it
 Create a plot of $y = log(x+1)$ where $x$ is a sequence of non-negative numbers from $a$ to $b$ and YOU get to choose $a$ and $b$. Define x using the `seq` function to generate 100 numbers between a and b. 
+(There is no option to submit answer on this one. Use the hint to check your work.)
 
-```{r plot3, exercise = TRUE}
+```{r youtryit3, exercise = TRUE}
 
 ```
 
+::: {#youtryit3-hint}
+If your code doesn't look similar to
+``` r
+x<-seq(a,b,by=c)
+y = log(x+1
+plot(x,y,type='l')
+```
+,where a,b,c are any non-negative numbers, then something is not right
+:::
 
 
 ## Submit your work
@@ -286,7 +549,7 @@ encoder_logic(strip_output=TRUE)
 
 ```{r encode, echo=FALSE}
 encoder_ui(ui_before = NULL, 
-           ui_after = iframe_ui(src = "https://docs.google.com/forms/d/e/1FAIpQLSdzre-kmqNje64ZCK7VsXHWKSVdGNOjSUwU1IZaCWs_vL_yuQ/viewform?embedded=true"))
+           ui_after = iframe_ui(src = "https://docs.google.com/forms/d/e/1FAIpQLSdzre-kmqNje64ZCK7VsXHWKSVdGNOjSUwU1IZaCWs_vL_yuQ/viewform?embedded=true", height = 900,width = 800))
 ```
 
 
