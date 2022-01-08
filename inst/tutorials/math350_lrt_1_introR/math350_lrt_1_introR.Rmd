@@ -15,9 +15,10 @@ library(gradethis)
 library(learnrhash)
 gradethis::gradethis_setup()
 knitr::opts_chunk$set(echo = FALSE)
+
 tutorial_options(
   exercise.blanks = TRUE, 
-  exercise.reveal_solution = TRUE
+  exercise.reveal_solution = FALSE
 )
 ```
 
