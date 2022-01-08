@@ -41,13 +41,13 @@ You can reset your progress on the entire tutorial by clicking "Start Over" in t
 For best viewing while working in the tutorials, maximize the tutorial viewer window or pop it out into a new window while you work. 
 
 ### A learning resource
-For best results you should have your course packet handy while working through these tutorials. There will be embedded quizzes and checks for understanding along the way. 
+For best results you should have your course packet and/or the online course notes handy while working through these tutorials. There will be embedded quizzes and checks for understanding along the way. 
 
 Your work will be saved along the way, so don't feel pressured to finish it all in one sitting. 
 
-At the end of each tutorial you will submit your assignment using a hash code that you will generate and submit via Google Forms - all from within the tutorial. These will be reviewed by the instructional team and scored. 
+At the end of each tutorial you will submit your work using a hash code that you will generate and submit via Google Forms - all from within the tutorial. These will be reviewed by the instructional team and scored. 
 
-Questions? Confused? Not sure how to start? Ask your questions in our Discord channel. The link to join is in the syllabus. 
+Questions? Confused? Not sure how to start? Ask away in our Discord channel. 
 
 ### Knowledge check
 
@@ -56,12 +56,12 @@ question("How will you submit your assignment?",
          answer("Email the instructor a screenshot"),
          answer("Export your results and upload to Blackboard Learn"),
          answer("At the end of each tutorial generate a hash code and submit via Google Forms - all with the tutorial", correct = TRUE),
-         answer("No need it uploads autamatically"),
+         answer("No need - it uploads autamatically"),
         allow_retry = TRUE
         )
 ```
 
-Okay have your course packet open to chapter 1 and let's get going on learning some basics about how to use the R programming language. 
+Alright, let's get going on learning some basics about how to use the R programming language. 
 
 ## Basic Math
 
@@ -149,7 +149,7 @@ grade_result(
 
 ## Storing results
 
-Most of the time we will want to save our results. To do so we use the *assignment operator* `<-` notation. This lets us save a value into an *object*, which we can then use later similar to a variable $x$ in algebra. The code has ran successfully if you do not receive any messages.
+Most of the time we will want to save the output of some function into a variable to use later. To do so we use the *assignment operator* `<-` notation. This lets us save a value into an *object*. 
 
 ```{r objectrexcerices1, exercise = TRUE}
  height <- 62
@@ -163,11 +163,13 @@ Most of the time we will want to save our results. To do so we use the *assignme
 grade_code("Good job!")
 ```
 
-Assigned objects aren't printed automatically. You can wrap the command in parenthesis to have R print out the results. Run the code below to see the value of height printed.
+Note no message was printed. Just because you didn't get an error message, doesn't mean that the code did what you intended it to do. Always trust but verify. 
+
+Replace the underscores `___` in the code below with parenthesis `(` and `)`, then run the code block to have R print out the results. 
 
 
-```{r objectrexcerices2, exercise = TRUE}
-(height <- 62)
+```{r objectrexcerices2, exercise = TRUE, exercise.blanks = TRUE}
+___ height <- 62 ___
 ```
 
 ```{r objectrexcerices2-solution}
@@ -263,7 +265,7 @@ c(2,3,5,7,11)
 grade_code("Nice work!")
 ```
 
-Re-create the vector of 5 primes, save it as the object `a`. Then on the second line, add 2 to this vector, and print print the results. 
+Re-create the vector of 5 primes, save it as the object `a`. Then on the second line, add 2 to this vector (e.g. `a+2`), and print print the results. 
 ```{r vectors_yti2, exercise = TRUE}
 
 ```
@@ -290,7 +292,7 @@ primes[2]
 
 ```{r vectors6, exercise = TRUE}
 primes <- c(2,3,5,7,11)
-primes[2]
+
 ```
 
 ```{r vectors6-solution}
@@ -317,9 +319,18 @@ primes[1:3]
 grade_code()
 ```
 
-## Logical Operators
+## Boolean values
 
-We can change a vector to TRUE and FALSE by writing a logical statement. 
+Boolean values are variables that are either FALSE or TRUE, and we will be using them a LOT. 
+
+```{r, echo=TRUE}
+4 < 3
+```
+
+We can change a vector to TRUE and FALSE by writing a logical statement. Note each element of the vector is checked against the greater than statement here.
+
+
+For example which elements in the vector `primes` are greater than 6?
 
 ```{r vectors8, exercise = TRUE, echo=-1}
 primes <- c(2,3,5,7,11)
@@ -335,25 +346,14 @@ primes > 6
 grade_code()
 ```
 
-This is super useful to do things like identify the numbers in primes that are greater than 6
-```{r vectors9, exercise = TRUE}
-primes <- c(2,3,5,7,11)
-primes[primes>6]
-```
+### Doing math on Boolean values
 
-```{r vectors9-solution}
-primes <- c(2,3,5,7,11)
-primes[primes>6]
-```
+What's cool about TRUE and FALSE, is that TRUE resolves as 1 and FALSE resolves as 0 when doing arithmetic.
 
-```{r vectors9-check}
-grade_code()
-```
-
-And count the number of primes greater than 6
+Use the `sum()` function to count the number of primes that are greater than 6. 
 ```{r vectors10, exercise = TRUE}
 primes <- c(2,3,5,7,11)
-sum(primes>6)
+___(primes>6)
 ```
 
 ```{r vectors10-solution}
@@ -365,22 +365,8 @@ sum(primes>6)
 grade_code()
 ```
 
-Is 4 a prime? 
-```{r log1, exercise = TRUE, echo=-1}
-primes <- c(2,3,5,7,11)
-primes[primes == 4]
-```
-
-```{r log1-solution}
-primes <- c(2,3,5,7,11)
-primes[primes == 4]
-```
-
-```{r log1-check}
-grade_code()
-```
-
-Another way to see if a value is contained inside a vector is using the `%in%` operator. 
+### Checking for a value in a vector
+To see if a value is contained inside a vector is using the `%in%` operator. This will also return a Boolean value.
 
 ```{r log2, exercise = TRUE, echo=-1}
 primes <- c(2,3,5,7,11)
@@ -396,32 +382,12 @@ primes <- c(2,3,5,7,11)
 grade_code()
 ```
 
-This works to compare each elements of a vector. Here it's returning TRUE and FALSE for each element in `odds`, on whether or not it is also an element of `primes`.
-
-```{r log3, exercise = TRUE, echo=-1}
+### You try it
+ 
+How many odd numbers are in the vector `prime`? Use the `seq` function to create a vector called `odds` that lists the odd numbers from 1 to 10. Then use the `%in%` function to see how many of the values in `odds` are also in `prime`. 
+```{r log4, exercise = TRUE}
 primes <- c(2,3,5,7,11)
-odds <- seq(1, 10, by=2)
-odds %in% primes
-```
 
-```{r log3-solution}
-primes <- c(2,3,5,7,11)
-odds <- seq(1, 10, by=2)
-odds %in% primes
-```
-
-```{r log3-check}
-grade_code()
-```
-
-### TRUE and FALSE as binary indicators
-
-What's cool about TRUE and FALSE, is that TRUE resolves as 1 and FALSE resolves as 0 when doing arithmetic. 
-How many odd numbers are prime (in our given vectors)
-```{r log4, exercise = TRUE, echo=-1}
-primes <- c(2,3,5,7,11)
-odds <- seq(1, 10, by=2)
-sum(odds %in% primes)
 ```
 
 ```{r log4-solution}
@@ -434,14 +400,14 @@ sum(odds %in% primes)
 grade_code()
 ```
 
-### AND and OR
+## AND and OR
 
 Often we will want to find out if two events are true at the same time, or if at least one of them is true. Using parenthesis to help keep our statements organized, we can ask multiple logical statements at the same time using either AND `&` or OR `|`
 
 Is 9 an odd prime? 
 
 ```{r andor1, exercise = TRUE}
- primes <- c(2,3,5,7,11)
+primes <- c(2,3,5,7,11)
 odds <- seq(1, 10, by=2)
 (9 %in% odds) & (9 %in% primes)
 ```
@@ -458,7 +424,7 @@ grade_code()
 
 ### You try it
 
-Is 9 an odd or a prime? Addf the line of code to check.
+Is 9 an odd or a prime? 
 ```{r andor2, exercise = TRUE}
 primes <- c(2,3,5,7,11)
 odds <- seq(1, 10, by=2)
@@ -484,13 +450,13 @@ grade_code("You got it!", "Try again! Use the 'hint' if needed!")
 For starters we are going to stick with the simple plotting method in R, namely the `plot` function. Short and simple, the arguments are `plot(x, y)`
 
 ```{r plot1, exercise = TRUE}
-x <- -10:10
+x <- seq(-10, 10, by=1)
 y <- x^2
 plot(x, y)
 ```
 
 ```{r plot1-solution}
-x <- -10:10
+x <- seq(-10, 10, by=1)
 y <- x^2
 plot(x, y)
 ```
@@ -499,16 +465,14 @@ plot(x, y)
 grade_code()
 ```
 
-The default is to just plot the points, but sometimes we may want to connect those points with a line (`l` is a lower case L). Type `?plot` in the code box for more plotting types. 
+The default is to just plot the points, but sometimes we may want to connect those points with a line (`l` is a lower case L). Recreate the plot above but add `type = 'l'` to the `plot()` function. 
 
 ```{r plot2, exercise = TRUE}
-x <- -10:10
-y <- x^2
-plot(x, y, type='l')
+
 ```
 
 ```{r plot2-solution}
-x <- -10:10
+x <- seq(-10, 10, by=1)
 y <- x^2
 plot(x, y, type='l')
 ```
@@ -528,7 +492,7 @@ Create a plot of $y = log(x+1)$ where $x$ is a sequence of non-negative numbers 
 ::: {#youtryit3-hint}
 If your code doesn't look similar to
 ``` r
-x<-seq(a,b,by=c)
+x <- seq(a,b,by=c)
 y = log(x+1
 plot(x,y,type='l')
 ```
@@ -544,14 +508,13 @@ Click the <kbd>Generate</kbd> button below to generate a hash for you assignment
 Paste this code into the Google Form below to submit your hash to the instructional team for scoring. You also have the opportunity to provide feedback and thoughts about the specific lesson. This is valuable information for the instructional team to know what topics were confusing for students or where extra help is needed. 
 
 ```{r context="server"}
-encoder_logic(strip_output=TRUE)
+#encoder_logic(strip_output=TRUE)
+encoder_logic()
 ```
 
 ```{r encode, echo=FALSE}
-encoder_ui(ui_before = NULL, 
-           ui_after = iframe_ui(src = "https://docs.google.com/forms/d/e/1FAIpQLSdzre-kmqNje64ZCK7VsXHWKSVdGNOjSUwU1IZaCWs_vL_yuQ/viewform?embedded=true", height = 900,width = 800))
+encoder_ui(default_ui(url = "https://forms.gle/bqQRdSo3g5YFjZ4f9"))
 ```
-
 
 
 
