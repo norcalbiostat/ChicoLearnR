@@ -1,0 +1,308 @@
+---
+title: "Section 2.1 Probability Basics"
+output: 
+    learnr::tutorial:
+      progressive: true
+      allow_skip: true
+runtime: shiny_prerendered
+description: > 
+  Probability is a way to mathematically describe random events. 
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(gradethis)
+library(learnrhash)
+gradethis::gradethis_setup()
+knitr::opts_chunk$set(echo = FALSE)
+tutorial_options(
+  exercise.blanks = TRUE, 
+  exercise.reveal_solution = FALSE
+)
+```
+
+## Set operations in `R`
+
+The following functions are used to compute intersections and unions. Each function can only take into consideration 2 vectors. 
+
+* `union`:  Either event, or both. ($\cup$)
+* `intersect`: Where do the two events overlap. ($\cap$) 
+* `setdiff`: Where the two events do not overlap.
+
+### Example
+
+Lets revisit the deck of cards problem from above: _A single card is drawn from a standard deck of cards. Let $A$ be the event that an ace is selected, and let $B$ be the event that a heart is drawn._
+
+First create the sample space. I am also printing the vector to ensure that what's being created is what is intended. Trust, but verify your code. 
+
+```{r samplespace1, exercise = TRUE}
+(numbers <- rep(c(1:10, "J", "Q", "K", "A"), 4))
+(suits <- rep(c("H", "C", "D", "S"), each = 13))
+(deck <- paste0(numbers, suits))
+```
+
+```{r samplespace1-solution}
+(numbers <- rep(c(1:10, "J", "Q", "K", "A"), 4))
+(suits <- rep(c("H", "C", "D", "S"), each = 13))
+(deck <- paste0(numbers, suits))
+```
+
+```{r samplespace1-check}
+grade_code()
+```
+
+Define event A using the elements defined in the `deck`, e.g. `"AH", "AC", "AD", "AS"`. 
+```{r eventA, exercise = TRUE, exercise.blanks = TRUE}
+(aces <-___) 
+```
+
+```{r eventA-solution}
+(aces <- c("AH", "AC", "AD", "AS")) 
+```
+
+```{r eventA-check}
+grade_this({
+  if(length(.result) < length(.solution)){
+    fail("It seems you're missing a card or two...")
+  }
+  
+   if(length(unique(.result)) < length(unique(.solution))){
+    fail("I spy a duplicate card.")
+   }
+  
+  if (setequal(.result, .solution)) {
+    pass("Great work!")
+  }
+  
+  fail("Try again! Do your cards match those found in the deck? (e.g. 'AC' not 'AceClubs')")
+})
+```
+
+Define event B (again using elements defined in `deck` e.g `2H`. 
+```{r eventB, exercise = TRUE, exercise.blanks = TRUE}
+
+```
+
+```{r eventB-solution}
+(hearts <- paste0(c(2:10, "J", "Q", "K", "A"), "H"))
+```
+
+```{r eventB-check}
+grade_this({
+
+  if(length(.result) < length(.solution)){
+    fail("It seems you're missing a card or two...")
+  }
+  
+  if(length(unique(.result)) < length(unique(.solution))){
+    fail("I spy a duplicate card.")
+  }
+  
+  if (setequal(.result, .solution)) {
+    pass("Great work!")
+  }
+  
+  fail("Try again! Do your cards match those found in the deck? (e.g. '2H' not 'H2')")
+})
+```
+
+Use R functions to find the following statements. Reminder in these tutorials (only) R code chunks don't talk to each other so you have to define your vectors each time. This does NOT happen in homework. 
+
+* $A\cup B$ 
+
+```{r union, exercise = TRUE, exercise.blanks = TRUE}
+aces <- ___
+hearts <- ___
+(aces.and.hearts <- ____(___, ____))
+```
+
+```{r union-solution}
+aces <- c("AH", "AC", "AD", "AS")
+hearts <- paste0(c(1:10, "J", "Q", "K", "A"), "H")
+(aces.and.hearts <- union(aces, hearts))
+```
+
+```{r union-check}
+grade_this({
+ if(length(.result) < length(.solution)){
+    fail("It seems you're missing a card or two...")
+  }
+
+  if (setequal(.result, .solution)) {
+    pass("Great work!")
+  }
+  
+  fail()
+})
+```
+
+* $A\cap B$ 
+
+```{r intersect, exercise = TRUE, exercise.blanks = TRUE}
+aces <- ___
+hearts <- ___
+(ace.of.hearts <- ____(___, ____))
+```
+
+```{r intersect-solution}
+aces <- c("AH", "AC", "AD", "AS")
+hearts <- paste0(c(1:10, "J", "Q", "K", "A"), "H")
+(ace.of.hearts <- intersect(aces, hearts))
+```
+
+```{intersect-check}
+grade_this({
+ if(length(.result) < length(.solution)){
+    fail("It seems you're missing a card or two...")
+  }
+
+  if (setequal(.result, .solution)) {
+    pass("Great work!")
+  }
+  
+  fail()
+})
+```
+
+* $B^{c}$ 
+
+```{r complement, exercise = TRUE, exercise.blanks = TRUE}
+aces <-  ___
+hearts <- ___
+numbers <-___
+suits <- ___
+deck <- paste0(numbers, suits)
+(no.hearts <-  ____(___, ____))
+```
+
+```{r complement-solution}
+aces <- c("AH", "AC", "AD", "AS")
+hearts <- paste0(c(1:10, "J", "Q", "K", "A"), "H")
+numbers <- rep(c(1:10, "J", "Q", "K", "A"), 4)
+suits <- rep(c("H", "C", "D", "S"), each = 13)
+deck <- paste0(numbers, suits)
+(no.hearts <- setdiff(deck, hearts))
+```
+
+```{r complement-check}
+grade_this({
+ if(length(.result) < length(.solution)){
+    fail("It seems you're missing a card or two...")
+  }
+
+  if (setequal(.result, .solution)) {
+    pass("Great work!")
+  }
+  
+  fail()
+})
+```
+
+## Probability rules
+
+### You try it:
+
+If 50 percent of the families in a certain city subscribe to the morning newspaper, 65 percent of the families subscribe to the afternoon newspaper, and 85 percent of the families subscribe to at least one of the two newspapers. Draw a Venn Diagram to represent this situation. 
+
+* What percentage of the families subscribe to both newspapers? (Use R as a calculator here.)
+
+```{r ytia, exercise = TRUE}
+
+```
+
+::: {#ytia-hint}
+*Dr. D add hint*
+:::
+
+```{r ytia-check}
+grade_result(pass_if(~identical(.result, .3)))
+```
+
+* What percentage of the families subscribe to only the afternoon paper? (Use R as a calculator here.)
+
+```{r ytib, exercise = TRUE}
+
+```
+
+::: {#ytib-hint}
+*Dr. D add hint*
+:::
+
+```{r ytib-check}
+grade_result(pass_if(~identical(.result, .35),))
+```
+
+* What percentage of the families don't subscribe to any paper? 
+
+```{r ytic, exercise = TRUE}
+
+```
+
+::: {#ytib-hint}
+*Dr. D add hint*
+:::
+
+```{r ytic-check}
+grade_result(pass_if(~ identical(.result, .15), "Good job!"))
+```
+
+### Example
+
+David Diez was interested in exploring the factors that contribute to an email being flagged as spam by Gmail's system. So they downloaded all their emails for a few months in 2012 and noted certain characteristics such as if it was flagged as spam (0 means no, and 1 means yes), and what size of a number it contained (none, small, or big). A _two-way table_ of emails with these two characteristics are shown below. 
+
+```{r example2a, exercise = TRUE}
+em <- openintro::email
+addmargins(table(em$spam, em$number, dnn=c("Spam", "Size of number")))
+```
+
+If you were to randomly select an email from this pool, calculate the following probabilities using `R` as a calculator: 
+
+* It is flagged as spam: 
+
+```{r example2b, exercise = TRUE}
+
+```
+
+```{r example2b-check}
+grade_result(pass_if(~ identical(.result, 367/3921), "Nice!"))
+```
+
+* It has a big number: 
+
+```{r example2c, exercise = TRUE}
+
+```
+
+```{r example2c-check}
+grade_result(pass_if(~ identical(.result, 545/3921)))
+```
+
+* It is not flagged as spam and has a small number: 
+
+```{r example2d, exercise = TRUE}
+
+```
+
+```{r example2d-check}
+grade_result(pass_if(~ identical(.result, 2559/3921)))
+```
+
+## Submit your work
+Part of your grade in this class comes from submitting tutorial work like this. 
+
+Click the <kbd>Generate</kbd> button below to generate a hash for you assignment. This long string of numbers is a unique code for you, and this assignment. 
+
+Paste this code into the Google Form below to submit your hash to the instructional team for scoring. You also have the opportunity to provide feedback and thoughts about the specific lesson. This is valuable information for the instructional team to know what topics were confusing for students or where extra help is needed. 
+
+```{r context="server"}
+#encoder_logic(strip_output=TRUE)
+encoder_logic()
+```
+
+```{r encode, echo=FALSE}
+encoder_ui(default_ui(url = "https://forms.gle/bn9jcPY57PPxes6u6"))
+```
+
+
+
+
