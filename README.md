@@ -8,6 +8,9 @@ Tutorials for Chico Learners.
 * `devtools`
 * `learnr`
 * `gradethis`
+* `openintro`
+* `palmerpenguins`
+
 
 ```r
 devtools::install_github("norcalbiostat/ChicoLearnR")
