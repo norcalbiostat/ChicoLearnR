@@ -1,0 +1,525 @@
+---
+title: "Section 2.2 Simulations"
+output: 
+    learnr::tutorial:
+      progressive: true
+      allow_skip: true
+runtime: shiny_prerendered
+description: > 
+   Simulation "simulates" a mathematical problem by using repeated sampling from a sample space and observing what occurs. 
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(gradethis)
+library(learnrhash)
+gradethis::gradethis_setup()
+knitr::opts_chunk$set(echo = FALSE, highlight = TRUE)
+tutorial_options(
+  exercise.blanks = TRUE, 
+  exercise.reveal_solution = FALSE
+)
+```
+
+## Simulations with `sample()`
+
+```{r worep, exercise.reveal_solution=TRUE}
+question(
+  "What does sampling **without replacement** mean?",
+  answer("Once the outcome has been observed, it is removed from the sample space for the next draw.", correct = TRUE),
+  answer("Each element is only represented in the sample space once"), 
+  answer("Elements in the sample space can be drawn repeated times"),
+  allow_retry = TRUE, 
+  random_answer_order = TRUE
+)
+```
+
+
+### Example
+
+Take a sample of 2 from the numbers 1 through 10 without replacement. 
+
+```{r ex3, exercise = TRUE}
+x <- ___   
+sample(___, size = ___) 
+```
+
+```{r ex3-solution}
+x <- 1:10   
+sample(x, size = 2) 
+```
+
+```{r ex3-check}
+grade_this({
+
+  if(length(.result) < length(.solution)){
+    fail("It seems you're missing a number or two...")
+  }
+  
+  if(length(unique(.result)) < length(unique(.solution))){
+    fail("I spy a duplicate number.")
+  }
+  
+  if (setequal(.result, .solution)) {
+    pass("Great work!")
+  }
+  
+  fail("Try again! Do you have all numbers 1-10?")
+})
+```
+
+### You try it 
+
+Sample without replacement three months from the list of months
+```{r yti1, exercise = TRUE}
+months <- c("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug",
+            "Sept","Oct","Nov","Dec")
+sample(__________,size = _____)
+```
+
+:::{#yti2-hint}
+You need to tell `R` where to sample from and how big of a sample to take. The default setting is `sample(df, size = , replace = FALSE)`.
+:::
+
+```{r yti1-solution}
+months <- c("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug",
+            "Sept","Oct","Nov","Dec")
+sample(months, size = 3)
+```
+
+```{r yti1-check}
+grade_code()
+```
+
+The defaults can be changed. For instance, if you want to sample **with replacement** you would just add `replace=TRUE` to the command. This allows you to sample more values than the size of the sample space
+
+### Example
+Sample 10 times from the vector 1:5. 
+
+```{r ex4, exercise = TRUE}
+x <- ___
+sample(___, size = ___, replace = ____)
+```
+
+```{r ex4-solution}
+x <- 1:5 
+sample(x, size = 10, replace = TRUE)
+```
+
+```{r ex4-check}
+grade_code()
+```
+
+
+### You try it
+
+Create a sample of 10 random days of the week. Just use the first two letters in the day name, and all lowercase.  
+
+```{r yti2, exercise = TRUE}
+days <- _______
+sample(__________,size = _____, replace = _____)
+```
+
+:::{#yti2-hint}
+Thee tutorials are case sensitive and order matters. The days should look like this `"mo", "tu", "we",..`. 
+:::
+
+```{r yti2-solution}
+days <- c("mo","tu","we","th","fr","sa","su")
+sample(days,size = 10, replace = TRUE)
+```
+
+```{r yti2-check}
+grade_code()
+```
+
+### Example
+
+Suppose that two six-sided dice are rolled and the numbers appearing on the dice are added. Calculate the probabilities of the two events listed below using both theoretical methods and simulation. 
+
+* Event D: The sum of the two dice is 6.
+* Event E: At least 1 die is a 2. 
+
+#### Event D: _The sum of the two dice is 6._
+
+**Theoretical Probability:**
+
+```{r ex7, exercise = TRUE}
+
+```
+
+::: {#ex7-hint}
+How many ways can two die add to 6? How many total different combinations are there?
+:::
+
+```{r ex7-check}
+grade_result(pass_if(~identical(.result, 5/36)))
+```
+
+
+**Simulation:**
+
+A successful simulation is built up in stages. First you create the sample space, then the event space. Then you identify the proportion of values drawn from the sample space that fall into the event space. 
+
+
+1. Create two vectors, each length 10,000 by sampling the numbers from 1 to 6. These represent the rolls on each of two dice. 
+
+```{r ex5a, exercise = TRUE}
+die_1 <- sample(x=___, size=___, replace=___)
+die_2 <- sample(x=___, size=___, replace=___)
+```
+
+```{r ex5a-solution}
+die_1 <- sample(x=1:6, size=10000, replace=TRUE)
+die_2 <- sample(x=1:6, size=10000, replace=TRUE)
+```
+
+```{r ex5a-check}
+grade_code()
+```
+
+2. Add these two vectors of dice results together to create the sample space. 
+
+```{r ex5b, exercise = TRUE}
+die_1 <- sample(x=___, size=___, replace=___)
+die_2 <- sample(x=___, size=___, replace=___)
+sum.of.2.dice <- ___ + ___
+```
+
+```{r ex5b-check}
+ex5b.answer.space <- replicate(1000, {
+      die_1 <- sample(x=1:6, size=10000, replace=TRUE)
+      die_2 <- sample(x=1:6, size=10000, replace=TRUE)
+      sum.of.2.dice <- die_1 + die_2
+})
+grade_this({
+  if (.result > min(ex5b.answer.space) & 
+      .result < max(ex5b.answer.space)) {
+    pass("Great work!")
+  }
+  
+  if (.result > max(ex5b.answer.space)) {
+    fail("Your answer is a bit high")
+  }
+  if (.result < min(ex5b.answer.space)) {
+    fail("Your answer is a bit low")
+  }
+  fail()
+})
+```
+
+
+3. Create a boolean value that represents whether or not the sample space is in the event space, then calculate the mean of the boolean value. 
+
+
+```{r ex5c, exercise = TRUE}
+die_1 <- sample(x=___, size=___, replace=___)
+die_2 <- sample(x=___, size=___, replace=___)
+sum.of.2.dice <- ___ + ___
+D <- sum.of.2.dice == ___
+mean(___)
+```
+
+::: {#ex5c-hint}
+The object `D` records whether the some of the 2 die is equal to 6, so the mean of this object will tell you what?
+:::
+
+
+```{r ex5c-check}
+ex5c.answer.space <- replicate(1000, {
+    die_1 <- sample(x=1:6, size=10000, replace=TRUE)
+    die_2 <- sample(x=1:6, size=10000, replace=TRUE)
+    sum.of.2.dice <- die_1 + die_2
+    D <- sum.of.2.dice == 6
+    mean(D)
+})
+grade_this({
+  if (.result > min(ex5c.answer.space) & 
+      .result < max(ex5c.answer.space)) {
+    pass("Great work!")
+  }
+  
+  if (.result > max(ex5c.answer.space)) {
+    fail("Your answer is a bit high")
+  }
+  if (.result < min(ex5c.answer.space)) {
+    fail("Your answer is a bit low")
+  }
+  fail()
+})
+```
+
+This simulated probability should be close to your theoretical probability, and to your classmates! Compare your answers with your team. 
+
+#### Event E: _At least 1 die is a 2._
+
+**Theoretical Probability**
+
+```{r ex9, exercise = TRUE}
+
+```
+
+```{r ex9-check}
+grade_result(pass_if(~identical(.result, 11/36)))
+``` 
+
+**Simulation**
+
+```{r ex10, exercise = TRUE}
+die_1 <- ____
+die_2 <- ____
+E <- die_1==____ | die_2 == ____
+mean(E)
+```
+
+```{r ex10-check}
+ex10.answer.space <- replicate(1000, {
+    die_1 <- sample(x=1:6, size=10000, replace=TRUE)
+    die_2 <- sample(x=1:6, size=10000, replace=TRUE)
+    E <- die_1==2 | die_2 == 2
+    mean(E)
+})
+grade_this({
+  if (.result > min(ex10.answer.space) & 
+      .result < max(ex10.answer.space)) {
+    pass("Great work!")
+  }
+  
+  if (.result > max(ex10.answer.space)) {
+    fail("Your answer is a bit high")
+  }
+  if (.result < min(ex10.answer.space)) {
+    fail("Your answer is a bit low")
+  }
+  fail()
+})
+```
+
+### You try it
+
+Roll three six-sided dice and add all the face up numbers. Use simulation to estimate the probability that the sum of the three dice is at least 10.
+
+```{r yti3, exercise = TRUE}
+
+```
+
+::: {#yti3-hint}
+You will have to add multiple lines of code. Checkout the examples we have done.
+:::
+
+```{r yti3-check}
+yti3.answer.space <- replicate(100, {
+  mean(
+    replicate(1000,{
+      sum(sample(x=1:6, size=3, replace=TRUE))>=10
+    })
+  )
+})
+
+grade_this({
+  if (.result > min(yti3.answer.space) & 
+      .result < max(yti3.answer.space)) {
+    pass("Great work!")
+  }
+  
+  if (.result > max(yti3.answer.space)) {
+    fail("Your answer is a bit high")
+  }
+  if (.result < min(yti3.answer.space)) {
+    fail("Your answer is a bit low")
+  }
+  fail()
+})
+```
+
+
+## Using `replicate` to repeat experiments
+
+### Example
+
+Simulate rolling a dice 7 times and computing the sum of all rolls and recording if the sum is greater then 30.
+
+```{r ex11, exercise = TRUE}
+dice <- sample(___, size=___,replace=___)
+___(____)>____
+```
+
+```{r ex11-solution}
+dice <- sample(1:6, size=7,replace=TRUE)
+sum(dice)>30
+```
+
+```{r ex11-check}
+grade_code()
+```
+
+Let's run this experiment 5 times. 
+
+```{r ex12, exercise = TRUE}
+replicate(n=___, {
+  dice <- sample(___, size=___,replace=___)
+  ___(____)>____
+  })
+```
+
+```{r ex12-solution}
+replicate(n=5, {
+  dice <- sample(1:6, size=7,replace=TRUE)
+  sum(dice)>30
+  })
+```
+
+```{r ex12-check}
+grade_code()
+```
+
+We will almost always want to replicate things a large number of times, say $n=10000$. We then store the output in a vector.
+
+```{r ex13, exercise = TRUE}
+results_dice <- replicate(n=___, {
+  dice <- sample(___, size=___,replace=___)
+  ___(____)>____
+  })
+```
+
+```{r ex13-solution}
+results_dice <- replicate(n = 10000,{
+  dice <- sample(1:6, size=7,replace=TRUE)
+  sum(dice)>30
+  })
+```
+
+```{r ex13-check}
+grade_code()
+```
+
+Now, calculate the probability of rolling a die 7 times and getting a sum larger than 30.
+
+```{r ex14, exercise = TRUE}
+results_dice <- replicate(n=___, {
+  dice <- sample(___, size=___,replace=___)
+  ___(____)>____
+  })
+mean(____)
+```
+
+```{r ex14-solution}
+results_dice <- replicate(n = 10000,{
+  dice <- sample(1:6, size=7,replace=TRUE)
+  sum(dice)>30
+  })
+mean(results_dice)
+```
+
+```{r ex14-check}
+grade_code()
+```
+
+## Purpose of replication. 
+
+```{r whyrep, echo=FALSE}
+question("Why repeat experiments thousands of times?",
+  answer("To get more accurate results"),
+  answer("To investigate the value of the parameter being estimated converges to the true probability in a specific setting", correct = TRUE),
+  answer("To create a range of plausible results"),
+  answer("To verify your results"),
+  allow_retry = TRUE, 
+  random_answer_order = TRUE
+)
+```
+
+
+### You try it
+
+1. If two die are rolled, what is the probability that the difference between the two numbers is less than 3? 
+
+```{r yti4ai, exercise = TRUE}
+#Delete this and calculate the theoretical probability here
+```
+
+```{r yti4ai-check}
+grade_result(pass_if(~identical(.result, 21/36)))
+```
+
+```{r yti4aii, exercise = TRUE}
+#Delete this and use simulation here
+```
+
+::: {#yti4aii-hint}
+First, write code that performs the experiment a single time. You may need to use the function abs which takes the absolute value of a number. Then use replicate and store them in a vector and calculate the mean to determine the probability.
+:::
+
+
+```{r yti4aii-check}
+yti4aii.answer.space <- 1
+
+grade_this({
+  if (round(.result,0) > min(yti4aii.answer.space) & 
+      .round(.result,0) < max(yti4aii.answer.space)) {
+    pass("Great work!")
+  }
+  
+  if (round(.result,0) > max(yti4aii.answer.space)) {
+    fail("Your answer is a bit high")
+  }
+  if (round(.result,0) < min(yti4aii.answer.space)) {
+    fail("Your answer is a bit low")
+  }
+  fail()
+})
+```
+
+
+2. A fair coin is repeatedly tossed ten times. Compute the probability that the last three coin tosses results in heads. (Hint, review Example 2.13 in the textbook for an example)
+
+```{r yti4bi, exercise = TRUE}
+#Delete this and calculate the theoretical probability here
+```
+
+```{r yti4bi-check}
+grade_result(pass_if(~identical(.result, 1/8)))
+```
+
+```{r yti4bii, exercise = TRUE}
+#Delete this and use simulation here
+```
+
+
+```{r yti4bii-check}
+yti4bii.answer.space <-  replicate(1000, {
+    cointoss <- sample(c("H","T"), 10, replace=TRUE)
+    mean(sum(cointoss[8:10]=="H")==3)}
+    )
+
+grade_this({
+  if (.result > min(yti4bii.answer.space) & 
+      .result < max(yti4bii.answer.space)) {
+    pass("Great work!")
+  }
+  
+  if (.result > max(yti4bii.answer.space)) {
+    fail("Your answer is a bit high")
+  }
+  if (.result < min(yti4bii.answer.space)) {
+    fail("Your answer is a bit low")
+  }
+  fail()
+})
+```
+
+## Submit your work
+
+Part of your grade in this class comes from submitting tutorial work like this. 
+
+Click the <kbd>Generate</kbd> button below to generate a hash for you assignment. This long string of numbers is a unique code for you, and this assignment. 
+
+Paste this code into the Google Form below to submit your hash to the instructional team for scoring. You also have the opportunity to provide feedback and thoughts about the specific lesson. This is valuable information for the instructional team to know what topics were confusing for students or where extra help is needed. 
+
+```{r context="server"}
+encoder_logic()
+```
+
+```{r encode, echo=FALSE}
+encoder_ui(default_ui(url = "https://forms.gle/pcx2j9oaRT4NMtKU9"))
+```
+
