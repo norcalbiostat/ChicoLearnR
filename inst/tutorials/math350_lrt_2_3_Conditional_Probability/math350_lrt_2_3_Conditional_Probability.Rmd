@@ -1,0 +1,341 @@
+---
+title: "Section 2.3: Conditional probability and independence "
+output: 
+    learnr::tutorial:
+      progressive: true
+      allow_skip: true
+runtime: shiny_prerendered
+description: > 
+  In this chapter we learn that we can update probabilities of an event happening if we know that certain events are observed. The updated probability of event A after we learn that event B has occurred is the conditional probability of A given B.
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(gradethis)
+library(learnrhash)
+gradethis::gradethis_setup()
+knitr::opts_chunk$set(echo = FALSE, highlight = TRUE)
+tutorial_options(
+  exercise.blanks = TRUE, 
+  exercise.reveal_solution = FALSE
+)
+```
+
+## Example: Tulips
+
+Suppose that we are given 20 tulip bulbs that are very similar in appearance and told that 8 tulips will bloom early, 12 will bloom late, 13 will be red, and 7 will be yellow. The following table summarizes information about the combination of features among these tulips:
+
+```{r, echo=FALSE,message=FALSE,warning=FALSE}
+library(dplyr); library(knitr); library(kableExtra)
+tulip <- data.frame(bloom = c(rep("Early", 8), rep("Late", 12)), 
+                   color = c(rep("Yellow",3), rep("Red",5), rep("Yellow", 4), rep("Red",8))
+)
+table(tulip$color, tulip$bloom) %>% addmargins() %>% kable() %>% 
+  kable_styling(full_width=F, position="center", latex_options = c("striped", "hold_position"))
+```
+
+If one tulip bulb is selected at random, what is the probability that it will produce a red tulip? (Use `R` as a calculator here)
+
+```{r ex1, exercise = TRUE}
+
+```
+
+```{r ex1-check}
+grade_result(pass_if(~identical(.result, 13/20)))
+```
+
+Suppose that, under close examination, we know that it will be an early bulb. What is the probability that, given we have an early bulb, it is a red tulip? (Use `R` as a calculator here)
+
+```{r ex2, exercise = TRUE}
+
+```
+
+
+```{r ex2-check}
+grade_result(pass_if(~identical(.result, 5/8)))
+```
+
+## Definition: Conditional Probability
+Let $A$ and $B$ be events in the sample space $S$, with $P(B)\neq 0$. The **conditional probability of $A$ given $B$** is
+
+$$P(A|B)=\frac{P(A \cap B)}{P(B)}$$
+
+### Example
+Suppose that $P(A) =.3, P(B)=.7$, and $P(A \cap B)=.2$. What is $P(A|B)$? (Use `R` as a calculator here)
+
+```{r ex3, exercise = TRUE}
+p.a <- ___
+p.b <- ___
+p.a.and.b <- ___
+```
+
+```{r ex3-check}
+grade_result(pass_if(~identical(.result, .2/.7)))
+```
+
+### You try it
+1. Suppose that $P(A)=.7, P(B)=.5$, and $P(A \cap B)=.2$. Find $P(A|B)$. (Use `R` as a calculator here)
+
+```{r yti1a, exercise = TRUE}
+
+```
+
+```{r yti1a-check}
+grade_result(pass_if(~identical(.result, .2/.5)))
+```
+
+2. Find $P(A\cap B)$ if $P(A)=0.2$, $P(B)=0.4$, and $P(A|B)+P(B|A)=0.75$.
+
+```{r yti1b, exercise = TRUE}
+
+```
+
+```{r yti1b-check}
+grade_result(pass_if(~identical(.result, .1)))
+```
+
+## Section 2.3.1 Independent Events
+
+### Example: Machine failure
+
+Suppose that two machines 1 and 2 in a factory are operated independently of each other.  Let $A$ be the event that machine 1 will become inoperative during a given 8-hour period; let $B$ be the event that the machine 2 will become inoperative during the same period; and suppose that P($A$)=1/3 and P($B$)=1/4.  We shall determine the probability that at least one of the machines will become inoperative during the given period.
+
+```{r ex4, exercise = TRUE}
+
+```
+
+```{r ex4-check}
+grade_result(pass_if(~identical(.result, .5)))
+```
+
+### Example: Graduation Requirements
+
+School board officials are debating whether to require all high school seniors to take a proficiency exam before graduating. A student passing all three parts (math, language, and general) would be awarded a diploma; otherwise, they would receive only a certificate of attendance. A practice test given to this year's ninety-five hundred seniors resulted in the following failures: **Math: 3325; Language: 1900; General knowledge: 1425**
+
+If "Student fails Math" (`M`), "Student fails language" (`L`), and "Student fails general knowledge" (`G`) are independent events, what proportion of next year's seniors can be expected to fail to qualify for a diploma? Does independence seem reasonable here?
+
+Store the probabilities of failing each subject in the objects below, and then calculte the probability using algebra on these objects. 
+
+```{r ex5, exercise = TRUE}
+M <- ____
+L <- ____
+G <- ____
+```
+
+::: {#ex5-hint}
+It may be helpful to use the complement.
+:::
+
+```{r ex5-check}
+grade_result(pass_if(~identical(.result, .56)))
+```
+
+### You try it
+
+```{r yti2, echo=FALSE}
+quiz(caption = "Suppose that $P(A \\cap B)=.2$, $P(A)=.6$, and $P(B)=.5$.",
+  question("Are $A$ and $B$ mutually exclusive?",
+    answer("Yes, because $P(A \\cup B) < 1$"),
+    answer("Yes, because they overlap"),
+    answer("No, because they overlap", correct = TRUE),
+    random_answer_order = TRUE
+  ),
+  question("Are $A$ and $B$ independent?",
+    answer("No, because $P(A \\cup B) < 1$"),
+    answer("Yes, because $P(A \\cap B) > 0$"),
+    answer("No, because $P(A)P(B) \\neq P(A \\cap B)$", correct = TRUE), 
+    random_answer_order = TRUE
+  ),
+    question("Find $P(A^{c} \\cup B^{c}$)",
+    answer(".2"),
+    answer(".9"),
+    answer(".8"),
+    answer(".1", correct = TRUE),
+    random_answer_order = TRUE
+  )
+)
+
+```
+
+
+### You try it:
+Myra and Carlos are summer interns working as proofreaders for a local newspaper.  Based on aptitude tests, Myra has a 50% chance of spotting a hyphenation error, while Carlos picks up on that same kind of mistake 80% of the time. Suppose the copy they are proofing contains a hyphenation error.  What is the probability it goes undetected?
+
+```{r yti3, exercise = TRUE}
+
+```
+
+::: {#yti3-hint}
+What we are looking for is the probability of the complement of a union. 
+:::
+
+```{r yti3-check}
+grade_result(pass_if(~identical(.result, .1)))
+```
+
+## Simulating conditional probability
+
+### Example 
+Two dice are rolled. Estimate the conditional probability that the sum of the dice is at most 4 given that one of the die is a 2. Let $A$ be that event that the sum of the dice is at most 4 and let $B$ be the event that one of the die is a 2. Thus,we want $P(A|B)$ (Note: It may take a minute for the tutorial to grade this problem)
+
+```{r ex7, exercise = TRUE, eval=FALSE}
+eventB <- replicate(10000,{
+  dieroll <- sample(1:6,2,replace=TRUE)
+  # Define event B here
+  
+  })
+
+probB <- mean(eventB)
+
+eventAB <- replicate(10000,{
+  dieroll <- sample(1:6,2,replace=TRUE)
+  # Define event A&B here
+  
+  })
+
+probAB <-  ________________
+(cond_prob <- _________/_________)
+```
+
+```{r ex7-check, cache=TRUE}
+ex7.answer.space <- replicate(100,{
+  eventB <- replicate(10000,{
+    dieroll <- sample(1:6,2,replace=TRUE)
+    2 %in% dieroll
+  })
+
+  probB <- mean(eventB)
+
+  eventAB <- replicate(10000,{
+    dieroll <- sample(1:6,2,replace=TRUE)
+    (sum(dieroll)<=4) & (2 %in% dieroll)
+  })
+  
+  probAB <- mean(eventAB)
+  cond_prob <- probAB/probB
+})
+
+grade_this({
+  if (.result > min(ex7.answer.space) & 
+      .result < max(ex7.answer.space)) {
+    pass("Great work!")
+  }
+  
+  if (.result > max(ex7.answer.space)) {
+    fail("Your answer is a bit high")
+  }
+  if (.result < min(ex7.answer.space)) {
+    fail("Your answer is a bit low")
+  }
+  fail()
+})
+```
+
+Now, compute the theoretical probability. Does your calculation match what is given above?
+
+```{r ex8, exercise = TRUE}
+
+```
+
+```{r ex8-check}
+grade_result(pass_if(~identical(.result, 4/12)))
+```
+
+## Theorem 2.3 Law of Total Probability
+
+### Example: Voting preferences
+The percentage of voters classified as Liberals in three different election districts are divided as follows: 21 % in the first district; 45% in the second district, and in the third district 75%. If a district is selected **at random** and a voter is selected at random from that district, what is the probability that she will be a Liberal?
+
+
+```{r ex9, exercise = TRUE}
+liberal.given.d1 <- ____
+liberal.given.d2 <- ____
+liberal.given.d3 <- ____
+p.d1 <- ___
+p.d2 <- ___
+p.d3 <- ___
+
+(P.L <- ____)
+```
+
+```{r ex9-check}
+grade_result(pass_if(~identical(.result, .47)))
+```
+
+### You try it
+In a certain study it was discovered that 15% of the participants were classified as *heavy smokers*, 30% as *light smokers*, and 55% as *nonsmokers*. In the five year study, 20% of the heavy smokers died, 10% of the light smokers died, and 4% of the nonsmokers died. What is the probability of death for this study?
+
+
+```{r ex10, exercise = TRUE}
+
+```
+
+```{r ex10-check}
+grade_result(pass_if(~identical(.result, .082)))
+```
+
+## Bayes' Rule and conditioning
+
+### Example: Disease test
+
+Suppose that you are walking down the street and notice that the Department of Public Health is giving a free medical test for a certain disease.  The test is 90 percent reliable in the following sense:  If a person has the disease, there is a probability of .9 that the test will yield a positive response; whereas, if a person does not have the disease, there is a probability of .1 that the test will give a positive response.
+
+Data indicate that your chances of having the disease  are only 1 in 10,000.  However, since the test costs you nothing, and is fast and harmless, you decide to stop and take the test.  A few days later you learn that you had a positive response to the test.  Now, what is the probability that you have the disease?
+
+
+```{r ex11, exercise = TRUE}
+pos.given.disease <- ___
+pos.given.no.disease <- ____
+prob.disease <- ____
+prob.no.disease <- ____
+
+(prob.disease.given.positive <- ____ )
+```
+
+```{r ex11-check}
+grade_result(pass_if(~identical(round(.result,5), 0.0009)))
+```
+
+### You try it
+
+1. At a hospital's emergency room, patients are classified and 20\% of them are critical, 30\% are serious, and 50\% are stable.  Of the critical ones, 30\% die; of the serious, 10\% die; and the stable, 1\% die.  Given that a patient dies, what is the conditional probability that the patient was classified as critical.
+
+
+```{r yti4a, exercise = TRUE}
+
+```
+
+```{r yti4a-check}
+grade_this(pass_if_equal(x = round(.result,1), y = .6))
+```
+
+
+2. In a certain city, 30% of the people are Conservatives, 50% are Liberals, and 20% are Independents. Records show that in a particular election, 65% of the Conservatives voted, 82% of the Liberals voted, and 50% of the Independents voted. If a person in the city is selected at random and it is learned that she did not vote in the last election, what is the probability that she is a liberal?
+
+```{r yti4b, exercise = TRUE}
+
+```
+
+```{r yti4b-check}
+grade_this(pass_if_equal(x = round(.result,1), y = .5))
+```
+
+## Submit your work
+Part of your grade in this class comes from submitting tutorial work like this. 
+
+Click the <kbd>Generate</kbd> button below to generate a hash for you assignment. This long string of numbers is a unique code for you, and this assignment. 
+
+Paste this code into the Google Form below to submit your hash to the instructional team for scoring. You also have the opportunity to provide feedback and thoughts about the specific lesson. This is valuable information for the instructional team to know what topics were confusing for students or where extra help is needed. 
+
+```{r context="server"}
+encoder_logic()
+```
+
+```{r encode, echo=FALSE}
+encoder_ui(default_ui(url = ""))
+```
+
+
+
+
+
