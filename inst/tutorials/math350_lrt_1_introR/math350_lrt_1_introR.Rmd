@@ -236,7 +236,23 @@ The `seq()` function creates a sequence of numbers. Here we create the sequence 
 ```
 
 ```{r vectors2-check}
-grade_code("Nice!")
+grade_this({
+
+  if(length(.result) < length(.solution)){
+    fail("It seems you're missing a number or two...")
+  }
+  
+  if(length(unique(.result)) < length(unique(.solution))){
+    fail("I spy a duplicate number.")
+  }
+  
+  if (setequal(.result, .solution)) {
+    pass("Great work!")
+  }
+  
+  fail("Try again! Do you have only odd numbers 1-10?")
+})
+
 ```
 
 The vector does not have to be made up of numerical values. If we put quotes around the word it is considered a 'character' data type. 
