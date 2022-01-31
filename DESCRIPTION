@@ -17,9 +17,9 @@ RoxygenNote: 7.1.1
 Imports: 
     learnrhash (>= 0.2.0),
     gradethis (>= 0.2.4.9000),
-    learnr (>= 0.10.1.9017),
     openintro,
     palmerpenguins
 Remotes: 
     rstudio/gradethis,
-    rundel/learnrhash
+    rundel/learnrhash,
+    rstudio/learnr
