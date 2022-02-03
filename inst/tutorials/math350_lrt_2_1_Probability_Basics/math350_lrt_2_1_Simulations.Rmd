@@ -94,13 +94,13 @@ Lets revisit the deck of cards problem from above: _A single card is drawn from 
 First create the sample space. I am also printing the vector to ensure that what's being created is what is intended. Trust, but verify your code. 
 
 ```{r samplespace1, exercise = TRUE}
-(numbers <- rep(c(1:10, "J", "Q", "K", "A"), 4))
+(numbers <- rep(c(2:10, "J", "Q", "K", "A"), 4))
 (suits <- rep(c("H", "C", "D", "S"), each = 13))
 (deck <- paste0(numbers, suits))
 ```
 
 ```{r samplespace1-solution}
-(numbers <- rep(c(1:10, "J", "Q", "K", "A"), 4))
+(numbers <- rep(c(2:10, "J", "Q", "K", "A"), 4))
 (suits <- rep(c("H", "C", "D", "S"), each = 13))
 (deck <- paste0(numbers, suits))
 ```
@@ -176,7 +176,7 @@ hearts <- ___
 
 ```{r union-solution}
 aces <- c("AH", "AC", "AD", "AS")
-hearts <- paste0(c(1:10, "J", "Q", "K", "A"), "H")
+hearts <- paste0(c(2:10, "J", "Q", "K", "A"), "H")
 (aces.and.hearts <- union(aces, hearts))
 ```
 
@@ -204,7 +204,7 @@ hearts <- ___
 
 ```{r intersect-solution}
 aces <- c("AH", "AC", "AD", "AS")
-hearts <- paste0(c(1:10, "J", "Q", "K", "A"), "H")
+hearts <- paste0(c(2:10, "J", "Q", "K", "A"), "H")
 (ace.of.hearts <- intersect(aces, hearts))
 ```
 
@@ -235,8 +235,8 @@ deck <- paste0(numbers, suits)
 
 ```{r complement-solution}
 aces <- c("AH", "AC", "AD", "AS")
-hearts <- paste0(c(1:10, "J", "Q", "K", "A"), "H")
-numbers <- rep(c(1:10, "J", "Q", "K", "A"), 4)
+hearts <- paste0(c(2:10, "J", "Q", "K", "A"), "H")
+numbers <- rep(c(2:10, "J", "Q", "K", "A"), 4)
 suits <- rep(c("H", "C", "D", "S"), each = 13)
 deck <- paste0(numbers, suits)
 (no.hearts <- setdiff(deck, hearts))
