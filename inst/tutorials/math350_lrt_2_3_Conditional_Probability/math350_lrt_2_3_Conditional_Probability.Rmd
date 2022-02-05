@@ -4,6 +4,8 @@ output:
     learnr::tutorial:
       progressive: true
       allow_skip: true
+      id: math350_lrt_2_3_Conditional_Probability
+      version: 1 # change the version when you want to invalidate past progress
 runtime: shiny_prerendered
 description: > 
   In this chapter we learn that we can update probabilities of an event happening if we know that certain events are observed. The updated probability of event A after we learn that event B has occurred is the conditional probability of A given B.

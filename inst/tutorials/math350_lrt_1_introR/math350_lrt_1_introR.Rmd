@@ -4,6 +4,8 @@ output:
     learnr::tutorial:
       progressive: true
       allow_skip: true
+      id: math350_lrt_1_introR
+      version: 1 # change the version when you want to invalidate past progress
 runtime: shiny_prerendered
 description: > 
   Introduction to the R language and how it will be used for this class. 

@@ -4,6 +4,8 @@ output:
     learnr::tutorial:
       progressive: true
       allow_skip: true
+      id: math350_lrt_2_1_Simulations
+      version: 1 # change the version when you want to invalidate past progress
 runtime: shiny_prerendered
 description: > 
   Probability is a way to mathematically describe random events. 

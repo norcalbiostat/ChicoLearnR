@@ -4,6 +4,8 @@ output:
     learnr::tutorial:
       progressive: true
       allow_skip: true
+      id: math350_lrt_2_2_Simulations
+      version: 1 # change the version when you want to invalidate past progress
 runtime: shiny_prerendered
 description: > 
    Simulation "simulates" a mathematical problem by using repeated sampling from a sample space and observing what occurs. 
