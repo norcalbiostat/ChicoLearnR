@@ -4,7 +4,7 @@ output:
     learnr::tutorial:
       progressive: true
       allow_skip: true
-      id: math350_lrt_2_1_Simulations
+      id: math350_lrt_2_1_Probability_Basics
       version: 1 # change the version when you want to invalidate past progress
 runtime: shiny_prerendered
 description: > 
@@ -274,8 +274,15 @@ If 50 percent of the families in a certain city subscribe to the morning newspap
 Use the last bullet point in the probability axioms on page 17. 
 :::
 
+```{r ytia-solution}
+.5 + .65 - .85
+```
+
 ```{r ytia-check}
-grade_result(pass_if(~identical(.result, .3)))
+grade_this({
+  pass_if_equal()
+  fail()
+})
 ```
 
 * What percentage of the families subscribe to only the afternoon paper? (Use R as a calculator here.)
@@ -288,8 +295,15 @@ grade_result(pass_if(~identical(.result, .3)))
 Recall $P(pm)=0.65$, represents the _entire_ circle for the afternoon paper. Find $P(PM \cap AM^{c})$. 
 :::
 
+```{r ytib-solution}
+.65 - .3 = .35
+```
+
 ```{r ytib-check}
-grade_result(pass_if(~identical(.result, .35),))
+grade_this({
+  pass_if_equal()
+  fail()
+})
 ```
 
 * What percentage of the families don't subscribe to any paper? 
@@ -302,8 +316,15 @@ grade_result(pass_if(~identical(.result, .35),))
 Use the fact that the entire sample space has to equal 1. 
 :::
 
+```{r ytic-solution}
+1 - .85
+```
+
 ```{r ytic-check}
-grade_result(pass_if(~ identical(.result, .15), "Good job!"))
+grade_this({
+  pass_if_equal()
+  fail()
+})
 ```
 
 ### Example
@@ -323,8 +344,15 @@ If you were to randomly select an email from this pool, calculate the following 
 
 ```
 
+```{r example2b-solution}
+367/3921
+```
+
 ```{r example2b-check}
-grade_result(pass_if(~ identical(.result, 367/3921), "Nice!"))
+grade_this({
+  pass_if_equal()
+  fail()
+})
 ```
 
 * It has a big number: 
@@ -333,8 +361,16 @@ grade_result(pass_if(~ identical(.result, 367/3921), "Nice!"))
 
 ```
 
+```{r example2c-solution}
+545/3921
+```
+
+
 ```{r example2c-check}
-grade_result(pass_if(~ identical(.result, 545/3921)))
+grade_this({
+  pass_if_equal()
+  fail()
+})
 ```
 
 * It is not flagged as spam and has a small number: 
@@ -343,10 +379,17 @@ grade_result(pass_if(~ identical(.result, 545/3921)))
 
 ```
 
-```{r example2d-check}
-grade_result(pass_if(~ identical(.result, 2659/3921)))
+```{r example2d-solution}
+2659/3921
 ```
 
+
+```{r example2d-check}
+grade_this({
+  pass_if_equal()
+  fail()
+})
+```
 
 
 ### You try it
@@ -366,8 +409,16 @@ If you were to select a penguin at random from these islands, what is the estima
 
 ```
 
+
+```{r penguina-solution}
+165/333
+```
+
 ```{r penguina-check}
-grade_result(pass_if(~ identical(.result, 165/333)))
+grade_this({
+  pass_if_equal()
+  fail()
+})
 ```
 
 
@@ -377,8 +428,15 @@ grade_result(pass_if(~ identical(.result, 165/333)))
 
 ```
 
+```{r penguinb-solution}
+119/333
+```
+
 ```{r penguinb-check}
-grade_result(pass_if(~ identical(.result, 119/333)))
+grade_this({
+  pass_if_equal()
+  fail()
+})
 ```
 
 
@@ -388,8 +446,15 @@ grade_result(pass_if(~ identical(.result, 119/333)))
 
 ```
 
+```{r penguinc-solution}
+34/333
+```
+
 ```{r penguinc-check}
-grade_result(pass_if(~ identical(.result, 34/333)))
+grade_this({
+  pass_if_equal()
+  fail()
+})
 ```
 
 
