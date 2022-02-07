@@ -4,6 +4,7 @@ output:
     learnr::tutorial:
       progressive: true
       allow_skip: true
+tutorial:
       id: math350_lrt_2_2_Simulations
       version: 1 # change the version when you want to invalidate past progress
 runtime: shiny_prerendered
