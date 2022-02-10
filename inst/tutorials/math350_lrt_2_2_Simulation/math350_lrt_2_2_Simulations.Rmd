@@ -437,6 +437,7 @@ question("Why repeat experiments thousands of times?",
 1. If two die are rolled, what is the probability that the difference between the two numbers is less than 3? 
 
 - Theoretical Probability
+
 ```{r yti4ai, exercise = TRUE}
 #Delete this and calculate the theoretical probability here
 ```
@@ -453,6 +454,7 @@ grade_this({
 ```
 
 - Estimated probability using simulation
+
 ```{r yti4aii, exercise = TRUE}
 #Delete this and use simulation here
 ```
@@ -485,6 +487,7 @@ grade_this({
 2. A fair coin is repeatedly tossed ten times. Compute the probability that the last three coin tosses results in heads. (Hint, review Example 2.13 in the textbook for an example)
 
 - Theoretical Probability
+
 ```{r yti4bi, exercise = TRUE}
 #Delete this and calculate the theoretical probability here
 ```
@@ -501,6 +504,7 @@ grade_this({
 ```
 
 - Estimated probability using simulation
+
 ```{r yti4bii, exercise = TRUE}
 #Delete this and use simulation here
 ```
