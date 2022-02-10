@@ -53,22 +53,7 @@ sample(x, size = 2)
 ```
 
 ```{r ex3-check}
-grade_this({
-
-  if(length(.result) < length(.solution)){
-    fail("It seems you're missing a number or two...")
-  }
-  
-  if(length(unique(.result)) < length(unique(.solution))){
-    fail("I spy a duplicate number.")
-  }
-  
-  if (setequal(.result, .solution)) {
-    pass("Great work!")
-  }
-  
-  fail("Try again! Do you have all numbers 1-10?")
-})
+grade_code()
 ```
 
 ### You try it 
@@ -146,7 +131,7 @@ Suppose that two six-sided dice are rolled and the numbers appearing on the dice
 #### Event D: _The sum of the two dice is 6._
 
 **Theoretical Probability:**
-
+Use R as a calculator to find this probability.
 ```{r ex7, exercise = TRUE}
 
 ```
@@ -155,8 +140,16 @@ Suppose that two six-sided dice are rolled and the numbers appearing on the dice
 How many ways can two die add to 6? How many total different combinations are there?
 :::
 
+```{r ex7-solution}
+5/36
+```
+
+
 ```{r ex7-check}
-grade_result(pass_if(~identical(.result, 5/36)))
+grade_this({
+  pass_if_equal()
+  fail()
+})
 ```
 
 
@@ -262,8 +255,15 @@ This simulated probability should be close to your theoretical probability, and 
 
 ```
 
+```{r ex9-solution, exercise = TRUE}
+11/36
+```
+
 ```{r ex9-check}
-grade_result(pass_if(~identical(.result, 11/36)))
+grade_this({
+  pass_if_equal()
+  fail()
+})
 ``` 
 
 **Simulation**
@@ -436,14 +436,23 @@ question("Why repeat experiments thousands of times?",
 
 1. If two die are rolled, what is the probability that the difference between the two numbers is less than 3? 
 
+- Theoretical Probability
 ```{r yti4ai, exercise = TRUE}
 #Delete this and calculate the theoretical probability here
 ```
 
-```{r yti4ai-check}
-grade_result(pass_if(~identical(.result, 21/36)))
+```{r yti4ai-solution}
+21/36
 ```
 
+```{r yti4ai-check}
+grade_this({
+  pass_if_equal()
+  fail()
+})
+```
+
+- Estimated probability using simulation
 ```{r yti4aii, exercise = TRUE}
 #Delete this and use simulation here
 ```
@@ -475,14 +484,23 @@ grade_this({
 
 2. A fair coin is repeatedly tossed ten times. Compute the probability that the last three coin tosses results in heads. (Hint, review Example 2.13 in the textbook for an example)
 
+- Theoretical Probability
 ```{r yti4bi, exercise = TRUE}
 #Delete this and calculate the theoretical probability here
 ```
 
-```{r yti4bi-check}
-grade_result(pass_if(~identical(.result, 1/8)))
+```{r yti4bi-solution}
+1/8
 ```
 
+```{r yti4bi-check}
+grade_this({
+  pass_if_equal()
+  fail()
+})
+```
+
+- Estimated probability using simulation
 ```{r yti4bii, exercise = TRUE}
 #Delete this and use simulation here
 ```

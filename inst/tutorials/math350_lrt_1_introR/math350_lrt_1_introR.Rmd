@@ -412,12 +412,19 @@ primes <- c(2,3,5,7,11)
 
 ```{r log4-solution}
 primes <- c(2,3,5,7,11)
-odds <- seq(1, 10, by=2)
+odds <- seq(from=1, to=10, by=2)
 sum(odds %in% primes)
 ```
 
 ```{r log4-check}
-grade_code()
+grade_this({
+  
+  if (setequal(.result, .solution)) {
+    pass("Great work!")
+  }
+  
+  fail()
+})
 ```
 
 ## AND and OR
@@ -439,7 +446,14 @@ odds <- seq(1, 10, by=2)
 ```
 
 ```{r andor1-check}
-grade_code()
+grade_this({
+  
+  if (setequal(.result, .solution)) {
+    pass("Great work!")
+  }
+  
+  fail()
+})
 ```
 
 ### You try it
