@@ -443,7 +443,7 @@ question("Why repeat experiments thousands of times?",
 ```
 
 ```{r yti4ai-solution}
-21/36
+24/36
 ```
 
 ```{r yti4ai-check}
@@ -465,7 +465,14 @@ First, write code that performs the experiment a single time. You may need to us
 
 
 ```{r yti4aii-check}
-yti4aii.answer.space <- 1
+yti4aii.answer.space <- replicate(100, {
+    diff_2d6_lt3 <- replicate(1000, {
+      one_roll <- sample(1:6, 7, replace=TRUE)
+      sum(one_roll[1]-one_roll[2])<3
+    })
+    mean(diff_2d6_lt3)
+  })
+
 
 grade_this({
   if (round(.result,0) > min(yti4aii.answer.space) & 
@@ -511,10 +518,13 @@ grade_this({
 
 
 ```{r yti4bii-check}
-yti4bii.answer.space <-  replicate(1000, {
+yti4bii.answer.space <-  replicate(100, {
+  all3h <- replicate(10000, {
     cointoss <- sample(c("H","T"), 10, replace=TRUE)
-    mean(sum(cointoss[8:10]=="H")==3)}
-    )
+    sum(cointoss[8:10]=="H")==3
+    })
+  mean(all3h)
+})
 
 grade_this({
   if (.result > min(yti4bii.answer.space) & 
