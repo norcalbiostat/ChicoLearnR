@@ -465,8 +465,8 @@ First, write code that performs the experiment a single time. You may need to us
 
 
 ```{r yti4aii-check}
-yti4aii.answer.space <- replicate(100, {
-    diff_2d6_lt3 <- replicate(10000, {
+yti4aii.answer.space <- replicate(1000, {
+    diff_2d6_lt3 <- replicate(1000, {
       one_roll <- sample(1:6, 2, replace=TRUE)
       abs(one_roll[1]-one_roll[2])<3
     })
@@ -476,7 +476,7 @@ yti4aii.answer.space <- replicate(100, {
 
 grade_this({
   if (round(.result,0) > min(yti4aii.answer.space) & 
-      .round(.result,0) < max(yti4aii.answer.space)) {
+      round(.result,0) < max(yti4aii.answer.space)) {
     pass("Great work!")
   }
   

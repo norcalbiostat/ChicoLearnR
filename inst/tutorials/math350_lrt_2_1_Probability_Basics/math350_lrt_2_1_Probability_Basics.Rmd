@@ -297,7 +297,7 @@ Recall $P(pm)=0.65$, represents the _entire_ circle for the afternoon paper. Fin
 :::
 
 ```{r ytib-solution}
-.65 - .3 = .35
+.65 - .3
 ```
 
 ```{r ytib-check}
