@@ -1,5 +1,5 @@
 ---
-title: "Section 2.3: Conditional probability and independence "
+title: "Section 2.3: Conditional probability and independence"
 output: 
     learnr::tutorial:
       progressive: true
@@ -67,9 +67,9 @@ $$P(A|B)=\frac{P(A \cap B)}{P(B)}$$
 Suppose that $P(A) =.3, P(B)=.7$, and $P(A \cap B)=.2$. What is $P(A|B)$? (Use `R` as a calculator here)
 
 ```{r ex3, exercise = TRUE}
-p.a <- ___
 p.b <- ___
 p.a.and.b <- ___
+p.a.given.b <- ____ # use the objects above to do this math
 ```
 
 ```{r ex3-check}
@@ -130,7 +130,7 @@ It may be helpful to use the complement.
 :::
 
 ```{r ex5-check}
-grade_result(pass_if(~identical(.result, .56)))
+grade_result(pass_if(~identical(round(.result,2), .56)))
 ```
 
 ### You try it
@@ -152,8 +152,8 @@ quiz(caption = "Suppose that $P(A \\cap B)=.2$, $P(A)=.6$, and $P(B)=.5$.",
     question("Find $P(A^{c} \\cup B^{c}$)",
     answer(".2"),
     answer(".9"),
-    answer(".8"),
-    answer(".1", correct = TRUE),
+    answer(".8", correct=TRUE),
+    answer(".1"),
     random_answer_order = TRUE
   )
 )
@@ -241,7 +241,7 @@ Now, compute the theoretical probability. Does your calculation match what is gi
 ```
 
 ```{r ex8-check}
-grade_result(pass_if(~identical(.result, 4/12)))
+grade_result(pass_if(~identical(.result, 3/11)))
 ```
 
 ## Theorem 2.3 Law of Total Probability
@@ -262,7 +262,7 @@ p.d3 <- ___
 ```
 
 ```{r ex9-check}
-grade_result(pass_if(~identical(.result, .47)))
+grade_result(pass_if(~identical(.result,2, .47)))
 ```
 
 ### You try it
@@ -304,23 +304,23 @@ grade_result(pass_if(~identical(round(.result,5), 0.0009)))
 1. At a hospital's emergency room, patients are classified and 20\% of them are critical, 30\% are serious, and 50\% are stable.  Of the critical ones, 30\% die; of the serious, 10\% die; and the stable, 1\% die.  Given that a patient dies, what is the conditional probability that the patient was classified as critical.
 
 
-```{r yti4a, exercise = TRUE}
+```{r yti-bayes1, exercise = TRUE}
 
 ```
 
-```{r yti4a-check}
+```{r yti-bayes1-check}
 grade_this(pass_if_equal(x = round(.result,1), y = .6))
 ```
 
 
 2. In a certain city, 30% of the people are Conservatives, 50% are Liberals, and 20% are Independents. Records show that in a particular election, 65% of the Conservatives voted, 82% of the Liberals voted, and 50% of the Independents voted. If a person in the city is selected at random and it is learned that she did not vote in the last election, what is the probability that she is a liberal?
 
-```{r yti4b, exercise = TRUE}
+```{r yti-bayes2, exercise = TRUE}
 
 ```
 
-```{r yti4b-check}
-grade_this(pass_if_equal(x = round(.result,1), y = .5))
+```{r yti-bayes2-check}
+grade_this(pass_if_equal(x = round(.result,1), y = .3))
 ```
 
 ## Submit your work
