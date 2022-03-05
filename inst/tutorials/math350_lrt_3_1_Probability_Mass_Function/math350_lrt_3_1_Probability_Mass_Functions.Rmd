@@ -4,8 +4,12 @@ output:
     learnr::tutorial:
       progressive: true
       allow_skip: true
+tutorial:
+      id: math350_lrt_2_4_Counting_Arguments
+      version: 1 # change the version when you want to invalidate past progress
 runtime: shiny_prerendered
 description: > 
+  A random variable is a mathematical formalization of a quantity or object which depends on random events
 ---
 
 ```{r setup, include=FALSE}
