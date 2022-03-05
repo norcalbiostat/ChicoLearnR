@@ -142,17 +142,11 @@ grade_code()
 
 ### You try it
 
-1. Three coins are tossed and the number of heads $X$ is counted. Simulate the pmf. **Store the pmf in the vector `nheads` provided**
+1. Three coins are tossed and the number of heads $X$ is counted. Simulate the pmf. **Store the pmf in the vector `nheads`**
 
 ```{r yti2a, exercise = TRUE}
-coin <- c("h","t")
 
-coin_toss <- replicate(5,{
-  results <- sample(coin,3,replace=TRUE)
-  sum(results=="h")
-})
 
-nheads <- proportions(table(coin_toss))
 ```
 
 
@@ -178,7 +172,7 @@ grade_this({
 ```
 
 
-2. Seven balls number 1-7 are in an urn. Two balls are drawn from the urn without replacement. Let $X$ be the sum of the numbers on the balls. Estimate via simulation the pmf of $X$. **Store the pmf in the vector `sum.balls` provided**
+2. Seven balls number 1-7 are in an urn. Two balls are drawn from the urn without replacement. Let $X$ be the sum of the numbers on the balls. Estimate via simulation the pmf of $X$. **Store the pmf in the vector `sum.balls`**
 
 ```{r yti2bi, exercise = TRUE}
 
