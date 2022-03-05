@@ -1,0 +1,402 @@
+---
+title: 'Section 3.1: Probability Mass Functions'
+output: 
+    learnr::tutorial:
+      progressive: true
+      allow_skip: true
+runtime: shiny_prerendered
+description: > 
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(gradethis)
+library(learnrhash)
+library(shiny)
+gradethis::gradethis_setup()
+knitr::opts_chunk$set(echo = FALSE)
+tutorial_options(
+  exercise.blanks = TRUE, 
+  exercise.reveal_solution = FALSE
+)
+```
+
+## Random Variables
+
+```{r quiz1, exercise.reveal_solution=TRUE}
+quiz(caption = "A statistical experiment produces an outcome in a sample space, but frequently we are more interested in....", 
+     question("",
+  answer("a number that summarizes that outcome.", correct = TRUE),
+  answer("repeating that experiment many times."),
+  answer("the correct answer."),
+  answer("exploring the entire sample space."),
+  random_answer_order = TRUE
+))
+
+```
+
+```{r quiz2, exercise.reveal_solution=TRUE}
+quiz(caption = "Dr. D has 2 dogs and 2 cats in her household, so S = {cat, dog}. Let $Y$ be a random variable that denotes the type of animal.",
+question(
+  "What are the possible outcome spaces of $Y$?",
+  answer("{0,1}", correct = TRUE),
+  answer("{'cat', 'dog'}"),
+  answer("{'cat', 'cat', 'dog', 'dog'}"),
+  answer("{1,2}", correct = TRUE),
+  random_answer_order = TRUE
+))
+```
+
+## Probability Mass Functions
+
+```{r quiz3, exercise.reveal_solution=TRUE}
+quiz(caption = "Suppose your roll 2 dice. Let $X$ be the sum of the two die. ",
+question(
+  "What is $P(X = 3)$?",
+  answer('2/36', correct = TRUE),
+  answer('1/36'),
+  answer('3/36'),
+  answer('4/36'),
+  random_answer_order = TRUE
+), 
+question(
+  "What is $P(X \\leq 3)$?",
+  answer('3/36', correct = TRUE),
+  answer('2/36'),
+  answer('1/36'),
+  answer('4/36'),
+  random_answer_order = TRUE
+)
+)
+```
+
+### Example
+Suppose your roll 2 dice. Let $X$ be the sum of the two die. Use simulation to estimate the probability distribution.
+
+```{r ex4a, exercise = TRUE}
+die <- ____ 
+d1  <- sample(____, ____, replace = ____)
+d2  <- sample(____, ____, replace = ____)
+sum.2d6   <- ____
+```
+
+```{r ex4a-solution}
+die <- 1:6 
+d1  <- sample(die, 1000, replace = TRUE)
+d2  <- sample(die, 1000, replace = TRUE)
+sum.2d6   <- d1 + d2
+```
+
+```{r ex4a-check}
+grade_code()
+```
+
+The pmf of $X$ is: 
+
+```{r ex4b, exercise = TRUE}
+die <- ____ 
+d1  <- sample(____, ____, replace = ____)
+d2  <- sample(____, ____, replace = ____)
+sum.2d6   <- ____
+____(____(____))
+```
+
+```{r ex4b-solution}
+die <- 1:6 
+d1  <- sample(die, 1000, replace = TRUE)
+d2  <- sample(die, 1000, replace = TRUE)
+sum.2d6 <- d1 + d2
+proportions(table(sum.2d6))
+```
+
+```{r ex4b-check}
+grade_code()
+```
+
+## Plotting the pmf
+We can use the function `plot` to plot the estimate of the pmf using the following code. 
+
+```{r plot1, exercise = TRUE}
+die <- 1:6 
+d1  <- sample(die, 1000, replace = TRUE)
+d2  <- sample(die, 1000, replace = TRUE)
+sum.2d6   <- d1 + d2
+plot(______, main=_____, ylab="Probability")
+```
+
+```{r plot1-solution}
+die <- 1:6 
+d1  <- sample(die, 1000, replace = TRUE)
+d2  <- sample(die, 1000, replace = TRUE)
+sum.2d6   <- d1 + d2
+plot(proportions(table(sum.2d6)),main="Sum of two dice", ylab="Probability")
+```
+
+```{r plot1-check}
+grade_code()
+```
+
+### You try it
+
+1. Three coins are tossed and the number of heads $X$ is counted. Simulate the pmf. **Store the pmf in the vector `nheads` provided**
+
+```{r yti2a, exercise = TRUE}
+coin <- c("h","t")
+
+coin_toss <- replicate(5,{
+  results <- sample(coin,3,replace=TRUE)
+  sum(results=="h")
+})
+
+nheads <- proportions(table(coin_toss))
+```
+
+
+```{r yti2a-check}
+coin <- c("h","t")
+
+coin_toss <- replicate(10000,{
+  results <- sample(coin,3,replace=TRUE)
+  sum(results=="h")
+})
+
+nheads.soln <- proportions(table(coin_toss))
+
+grade_this({
+  if (length(.result) != length(nheads.soln)) {
+    fail("Incorrect space of the random variable. Did you use sufficient replications?")
+  }
+  if ( abs(sum(.result - nheads.soln)) <.01 ) {
+    pass("Great work!")
+  }
+  fail()
+})
+```
+
+
+2. Seven balls number 1-7 are in an urn. Two balls are drawn from the urn without replacement. Let $X$ be the sum of the numbers on the balls. Estimate via simulation the pmf of $X$. **Store the pmf in the vector `sum.balls` provided**
+
+```{r yti2bi, exercise = TRUE}
+
+```
+
+
+```{r yti2bi-check}
+x <- replicate(10000, {
+  balls <- sample(1:7,2,replace=FALSE) 
+  total_2balls <- sum(balls)
+})
+
+sum.balls <- proportions(table(x))
+
+grade_this({
+  if (length(.result) != length(sum.balls)) {
+    fail("Incorrect space of the random variable. Did you use sufficient replications?")
+  }
+  if ( abs(sum(.result - sum.balls)) <.01 ) {
+    pass("Great work!")
+  }
+  fail()
+})
+
+```
+
+
+### Challenge Example
+
+Suppose you have a bag full of marbles; 50 are red and 50 are blue. You are standing on a number line, and you draw a marble out of the bag. If you get red, you go left one unit. If you get blue, you go right one unit. This is called a *random walk*. You draw marbles up to 100 times, each time moving left or right one unit. Let $X$ be the number of marbles drawn from the bag until you return to 0 for the first time. The rv $X$ is called the *first return time* since it is the number of steps it takes to return to your starting position.
+
+
+Estimate the pmf of $X$.
+
+```{r challenge, exercise = TRUE}
+
+```
+
+
+```{r challenge-check}
+bag <- c(rep(-1, 50), rep(1, 50))
+
+walk.space <- replicate(100,{
+  rand.walk <- replicate(10000,{
+    steps <- sample(bag)
+    walk <- cumsum(steps)
+    where.zero <- which(walk==0)
+    ans <- min(where.zero)
+  })
+  mean(rand.walk)
+})
+
+grade_this({
+  if (.result > min(walk.space) & 
+      .result < max(walk.space)) {
+    pass("Great work!")
+  }
+  
+  if (.result > max(walk.space)) {
+    fail("Your answer is a bit high")
+  }
+  if (.result < min(walk.space)) {
+    fail("Your answer is a bit low")
+  }
+  fail()
+})
+```
+
+## Sampling from a known distribution
+
+### Example: Blood types
+
+In the United states, human blood comes in four types: O,A,B,AB. Take a sample of thirty blood types with the following probabilities: $P(O) = 0.45, P(A) = 0.4, P(B) = 0.11, P(AB) = 0.04$ 
+
+```{r ex5a, exercise = TRUE}
+bloodtypes <- c(_____,_____,_____,_____)
+prob_bloodtypes <- c(_____,_____,_____,_____)
+sample_blood <- sample(x =________________, size =_____, prob=________, replace=_____)
+sample_blood[1:10] #quick peek to confirm
+```
+
+```{r ex5a-solution}
+bloodtypes <- c(O,A,B,AB)
+prob_bloodtypes <- c(0.45,0.4,0.11,0.04)
+sample_blood <- sample(x =bloodtypes_, size = 30, prob=prob_bloodtypes, replace=TRUE)
+sample_blood[1:10]
+```
+
+```{r ex5a-check}
+grade_code()
+```
+
+The estimated pmf is then: 
+
+```{r ex5b, exercise = TRUE}
+bloodtypes <- c(_____,_____,_____,_____)
+prob_bloodtypes <- c(_____,_____,_____,_____)
+sample_blood <- sample(x =________________, size =_____, prob=________, replace=_____)
+
+proportions(table(_____)) 
+```
+
+```{r ex5b-solution}
+bloodtypes <- c(O,A,B,AB)
+prob_bloodtypes <- c(0.45,0.4,0.11,0.04)
+sample_blood <- sample(x =bloodtypes_, size = 30, prob=prob_bloodtypes, replace=TRUE)
+proportions(table(sample_blood)) 
+```
+
+```{r ex5b-check}
+grade_code()
+```
+
+
+### You try it
+
+Suppose the proportion of M&Ms by color is: 14% yellow, 13% Red, 20% Orange, 12% Brown, 20% Green, and 21% Blue. Answer the following questions using simulation. 
+
+a. What is the probability that a randomly selected M&M is not green?
+
+```{r yti3a, exercise = TRUE}
+
+```
+
+```{r yti3a-check}
+colors <- c("Y","R","O","Br","G","Bl")
+prob_mnms <- c(.14,.13,.2,.12,.2,.21)
+
+mm.green.ans.space <- replicate(100, {
+  not.green <- replicate(10000,{
+    mnm_sample <- sample(colors, 50, prob=prob_mnms, replace=TRUE)
+    mnm_sample !="G"
+  })
+  mean(not.green)
+})
+
+grade_this({
+ 
+})
+
+grade_this({
+  if (.result > min(mm.green.ans.space) & 
+      .result < max(mm.green.ans.space)) {
+    pass("Great work!")
+  }
+  
+  if (.result > max(mm.green.ans.space)) {
+    fail("Your answer is a bit high")
+  }
+  if (.result < min(mm.green.ans.space)) {
+    fail("Your answer is a bit low")
+  }
+  fail()
+})
+```
+
+
+b. What is the probability that a randomly selected M&M is red, orange, or yellow? 
+
+```{r yti3b, exercise = TRUE}
+
+```    
+
+```{r yti3b-check}
+colors <- c("Y","R","O","Br","G","Bl")
+prob_mnms <- c(.14,.13,.2,.12,.2,.21)
+
+mm.roy.ans.space <- replicate(100, {
+  roy <- replicate(10000,{
+    mnm_sample <- sample(colors, 50, prob=prob_mnms, replace=TRUE)
+    mnm_sample %in% c("R", "O", "Y")
+  })
+  mean(roy)
+})
+
+grade_this({
+ 
+})
+
+grade_this({
+  if (.result > min(mm.roy.ans.space) & 
+      .result < max(mm.roy.ans.space)) {
+    pass("Great work!")
+  }
+  
+  if (.result > max(mm.roy.ans.space)) {
+    fail("Your answer is a bit high")
+  }
+  if (.result < min(mm.roy.ans.space)) {
+    fail("Your answer is a bit low")
+  }
+  fail()
+})
+```
+
+
+## Submit your work
+
+Part of your grade in this class comes from submitting tutorial work like this. 
+
+Click the <kbd>Generate</kbd> button below to generate a hash for you assignment. This long string of numbers is a unique code for you, and this assignment. 
+
+Paste this code into the Google Form below to submit your hash to the instructional team for scoring. You also have the opportunity to provide feedback and thoughts about the specific lesson. This is valuable information for the instructional team to know what topics were confusing for students or where extra help is needed. 
+
+```{r context="server"}
+encoder_logic()
+```
+
+```{r encode, echo=FALSE}
+encoder_ui(default_ui(url = "https://forms.gle/xUK6GV9hxJau3Hrv8"))
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
