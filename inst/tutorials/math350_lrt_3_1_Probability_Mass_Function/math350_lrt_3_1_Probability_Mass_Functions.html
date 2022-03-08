@@ -108,8 +108,8 @@ if (window.hljs) {
 
 <div class="topics">
 
-<div id="section-random-variables" class="section level1">
-<h1>Random Variables</h1>
+<div id="section-random-variables" class="section level2">
+<h2>Random Variables</h2>
 <p><div class="panel-heading tutorial-quiz-title">A statistical experiment produces an outcome in a sample space, but frequently we are more interested in....</div></p>
 <div class="panel panel-default">
 <div data-label="quiz1-1" class="tutorial-question panel-body">
@@ -129,8 +129,8 @@ if (window.hljs) {
 </div>
 </div>
 </div>
-<div id="section-probability-mass-functions" class="section level1">
-<h1>Probability Mass Functions</h1>
+<div id="section-probability-mass-functions" class="section level2">
+<h2>Probability Mass Functions</h2>
 <p><div class="panel-heading tutorial-quiz-title">Suppose your roll 2 dice. Let \(X\) be the sum of the two die. </div></p>
 <div class="panel panel-default">
 <div data-label="quiz3-1" class="tutorial-question panel-body">
@@ -169,8 +169,8 @@ ____(____(____))</code></pre>
 </div>
 </div>
 </div>
-<div id="section-plotting-the-pmf" class="section level1">
-<h1>Plotting the pmf</h1>
+<div id="section-plotting-the-pmf" class="section level2">
+<h2>Plotting the pmf</h2>
 <p>We can use the function <code>plot</code> to plot the estimate of the pmf using the following code.</p>
 <div class="tutorial-exercise" data-label="plot1" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>die &lt;- 1:6 
@@ -183,21 +183,13 @@ plot(______, main=_____, ylab=&quot;Probability&quot;)</code></pre>
 <div id="section-you-try-it" class="section level3">
 <h3>You try it</h3>
 <ol style="list-style-type: decimal">
-<li>Three coins are tossed and the number of heads <span class="math inline">\(X\)</span> is counted. Simulate the pmf. <strong>Store the pmf in the vector <code>nheads</code> provided</strong></li>
+<li>Three coins are tossed and the number of heads <span class="math inline">\(X\)</span> is counted. Simulate the pmf. <strong>Store the pmf in the vector <code>nheads</code></strong></li>
 </ol>
 <div class="tutorial-exercise" data-label="yti2a" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
-<pre class="text"><code>coin &lt;- c(&quot;h&quot;,&quot;t&quot;)
-
-coin_toss &lt;- replicate(5,{
-  results &lt;- sample(coin,3,replace=TRUE)
-  sum(results==&quot;h&quot;)
-})
-
-nheads &lt;- proportions(table(coin_toss))</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":true,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
 <ol start="2" style="list-style-type: decimal">
-<li>Seven balls number 1-7 are in an urn. Two balls are drawn from the urn without replacement. Let <span class="math inline">\(X\)</span> be the sum of the numbers on the balls. Estimate via simulation the pmf of <span class="math inline">\(X\)</span>. <strong>Store the pmf in the vector <code>sum.balls</code> provided</strong></li>
+<li>Seven balls number 1-7 are in an urn. Two balls are drawn from the urn without replacement. Let <span class="math inline">\(X\)</span> be the sum of the numbers on the balls. Estimate via simulation the pmf of <span class="math inline">\(X\)</span>. <strong>Store the pmf in the vector <code>sum.balls</code></strong></li>
 </ol>
 <div class="tutorial-exercise" data-label="yti2bi" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":true,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
@@ -211,6 +203,9 @@ nheads &lt;- proportions(table(coin_toss))</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":true,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
 </div>
+</div>
+<div id="section-sampling-from-a-known-distribution" class="section level2">
+<h2>Sampling from a known distribution</h2>
 <div id="section-example-blood-types" class="section level3">
 <h3>Example: Blood types</h3>
 <p>In the United states, human blood comes in four types: O,A,B,AB. Take a sample of thirty blood types with the following probabilities: <span class="math inline">\(P(O) = 0.45, P(A) = 0.4, P(B) = 0.11, P(AB) = 0.04\)</span></p>
@@ -223,7 +218,11 @@ sample_blood[1:10] #quick peek to confirm</code></pre>
 </div>
 <p>The estimated pmf is then:</p>
 <div class="tutorial-exercise" data-label="ex5b" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
-<pre class="text"><code>proportions(table(sample_blood)) </code></pre>
+<pre class="text"><code>bloodtypes &lt;- c(_____,_____,_____,_____)
+prob_bloodtypes &lt;- c(_____,_____,_____,_____)
+sample_blood &lt;- sample(x =________________, size =_____, prob=________, replace=_____)
+
+proportions(table(_____)) </code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":true,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
 </div>
@@ -236,12 +235,12 @@ sample_blood[1:10] #quick peek to confirm</code></pre>
 <div class="tutorial-exercise" data-label="yti3a" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":true,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
-<p><em>DR D</em></p>
 <ol start="2" style="list-style-type: lower-alpha">
 <li>What is the probability that a randomly selected M&amp;M is red, orange, or yellow?</li>
 </ol>
 <div class="tutorial-exercise" data-label="yti3b" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":true,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
+</div>
 </div>
 </div>
 <div id="section-submit-your-work" class="section level2">
@@ -256,7 +255,7 @@ solutions, please click the button below to generate your hash and
 submit it using the following link:
 <br/>
 <h3>
-<a href="" target="_blank"></a>
+<a href="https://forms.gle/xUK6GV9hxJau3Hrv8" target="_blank">https://forms.gle/xUK6GV9hxJau3Hrv8</a>
 </h3>
 <br/>
 </div>
@@ -335,7 +334,7 @@ tutorial_options(
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::register_http_handlers(session, metadata = NULL)
+learnr:::register_http_handlers(session, metadata = list(id = "math350_lrt_2_4_Counting_Arguments", version = 1L))
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
@@ -354,19 +353,19 @@ session$onSessionEnded(function() {
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz1-1", question = structure("", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_3f21ab1", 
+"character")), answers = list(structure(list(id = "lnr_ans_ee9d23b", 
     option = "a number that summarizes that outcome.", value = "a number that summarizes that outcome.", 
     label = structure("a number that summarizes that outcome.", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_e983708", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_a286fb3", 
     option = "repeating that experiment many times.", value = "repeating that experiment many times.", 
     label = structure("repeating that experiment many times.", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_32565d8", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_6d8d13f", 
     option = "the correct answer.", value = "the correct answer.", 
     label = structure("the correct answer.", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_9b58047", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_8e92e43", 
     option = "exploring the entire sample space.", value = "exploring the entire sample space.", 
     label = structure("exploring the entire sample space.", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
@@ -378,23 +377,23 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz1-1-answer", question = "quiz1-1"), loading = structure("<strong>Loading:<\u002fstrong> <\u002fp>\n\n<p><br/><br/><br/>", html = TRUE, class = c("html", 
 "character")), random_answer_order = TRUE, allow_retry = FALSE, 
-    seed = 1499769974.80162, options = list()), class = c("learnr_radio", 
+    seed = 1486765033.30767, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", label = "quiz2-1", question = structure("What are the possible outcome spaces of \\(Y\\)?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_d44a586", 
+"character")), answers = list(structure(list(id = "lnr_ans_7323b6f", 
     option = "{0,1}", value = "{0,1}", label = structure("{0,1}", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_766964f", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_d1eeae4", 
     option = "{'cat', 'dog'}", value = "{'cat', 'dog'}", label = structure("{&#39;cat&#39;, &#39;dog&#39;}", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_ecf88ac", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_882dded", 
     option = "{'cat', 'cat', 'dog', 'dog'}", value = "{'cat', 'cat', 'dog', 'dog'}", 
     label = structure("{&#39;cat&#39;, &#39;cat&#39;, &#39;dog&#39;, &#39;dog&#39;}", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_30ec978", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_c7ceb0", 
     option = "{1,2}", value = "{1,2}", label = structure("{1,2}", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
 "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -405,22 +404,22 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", lab
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz2-1-answer", question = "quiz2-1"), loading = structure("<strong>Loading:<\u002fstrong> \nWhat are the possible outcome spaces of \\(Y\\)?\n<br/><br/><br/>", html = TRUE, class = c("html", 
 "character")), random_answer_order = TRUE, allow_retry = FALSE, 
-    seed = 420830861.304035, options = list()), class = c("learnr_checkbox", 
+    seed = 1420853969.83836, options = list()), class = c("learnr_checkbox", 
 "tutorial_question")), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz3-1", question = structure("What is \\(P(X = 3)\\)?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_9cbf4f0", 
+"character")), answers = list(structure(list(id = "lnr_ans_b2813c6", 
     option = "2/36", value = "2/36", label = structure("2/36", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_a52f381", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_55e6cfc", 
     option = "1/36", value = "1/36", label = structure("1/36", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_31b060a", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_a2fca64", 
     option = "3/36", value = "3/36", label = structure("3/36", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_b61b1ea", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_ee2002d", 
     option = "4/36", value = "4/36", label = structure("4/36", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
 "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -431,22 +430,22 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz3-1-answer", question = "quiz3-1"), loading = structure("<strong>Loading:<\u002fstrong> \nWhat is \\(P(X = 3)\\)?\n<br/><br/><br/>", html = TRUE, class = c("html", 
 "character")), random_answer_order = TRUE, allow_retry = FALSE, 
-    seed = 383400251.321465, options = list()), class = c("learnr_radio", 
+    seed = 558990684.2397, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz3-2", question = structure("What is \\(P(X \\leq 3)\\)?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_a087591", 
+"character")), answers = list(structure(list(id = "lnr_ans_22d5cc5", 
     option = "3/36", value = "3/36", label = structure("3/36", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_205bc7f", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_e8cdef4", 
     option = "2/36", value = "2/36", label = structure("2/36", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_6dd3951", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_ad47dc7", 
     option = "1/36", value = "1/36", label = structure("1/36", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_aef344d", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_1751bef", 
     option = "4/36", value = "4/36", label = structure("4/36", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
 "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -457,7 +456,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz3-2-answer", question = "quiz3-2"), loading = structure("<strong>Loading:<\u002fstrong> \nWhat is \\(P(X \\leq 3)\\)?\n<br/><br/><br/>", html = TRUE, class = c("html", 
 "character")), random_answer_order = TRUE, allow_retry = FALSE, 
-    seed = 983409082.542064, options = list()), class = c("learnr_radio", 
+    seed = 658480515.193371, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
@@ -610,12 +609,11 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
 "gradethis::gradethis_setup()", "knitr::opts_chunk$set(echo = FALSE)", 
 "tutorial_options(", "  exercise.blanks = TRUE, ", "  exercise.reveal_solution = FALSE", 
 ")"), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
-    chunks = list(list(label = "yti2a", code = "coin <- c(\"h\",\"t\")\n\ncoin_toss <- replicate(5,{\n  results <- sample(coin,3,replace=TRUE)\n  sum(results==\"h\")\n})\n\nnheads <- proportions(table(coin_toss))", 
-        opts = list(label = "\"yti2a\"", exercise = "TRUE"), 
-        engine = "r")), code_check = NULL, error_check = NULL, 
-    check = structure(c("coin <- c(\"h\",\"t\")", "", "coin_toss <- replicate(10000,{", 
-    "  results <- sample(coin,3,replace=TRUE)", "  sum(results==\"h\")", 
-    "})", "", "nheads.soln <- proportions(table(coin_toss))", 
+    chunks = list(list(label = "yti2a", code = "\n", opts = list(
+        label = "\"yti2a\"", exercise = "TRUE"), engine = "r")), 
+    code_check = NULL, error_check = NULL, check = structure(c("coin <- c(\"h\",\"t\")", 
+    "", "coin_toss <- replicate(10000,{", "  results <- sample(coin,3,replace=TRUE)", 
+    "  sum(results==\"h\")", "})", "", "nheads.soln <- proportions(table(coin_toss))", 
     "", "grade_this({", "  if (length(.result) != length(nheads.soln)) {", 
     "    fail(\"Incorrect space of the random variable. Did you use sufficient replications?\")", 
     "  }", "  if ( abs(sum(.result - nheads.soln)) <.01 ) {", 
@@ -639,11 +637,9 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
         max.print = 1000, exercise.timelimit = 60, exercise.checker = "function (label = NULL, solution_code = NULL, user_code = NULL, \n    check_code = NULL, envir_result = NULL, evaluate_result = NULL, \n    envir_prep = NULL, last_value = NULL, stage = NULL, ...) \n{\n    (utils::getFromNamespace(\"check_exercise\", \"gradethis\"))(label = label, \n        solution_code = solution_code, user_code = user_code, \n        check_code = check_code, envir_result = envir_result, \n        evaluate_result = evaluate_result, envir_prep = envir_prep, \n        last_value = last_value, stage = stage, ...)\n}", 
         exercise.error.check.code = "gradethis_error_checker()", 
         exercise.blanks = TRUE, exercise.reveal_solution = FALSE, 
-        label = "yti2a", exercise = TRUE, code = c("coin <- c(\"h\",\"t\")", 
-        "", "coin_toss <- replicate(5,{", "  results <- sample(coin,3,replace=TRUE)", 
-        "  sum(results==\"h\")", "})", "", "nheads <- proportions(table(coin_toss))"
-        ), out.width.px = 624, out.height.px = 384, params.src = "yti2a, exercise = TRUE", 
-        fig.num = 0, exercise.df_print = "paged"), engine = "r"), class = "tutorial_exercise"))
+        label = "yti2a", exercise = TRUE, code = c("", ""), out.width.px = 624, 
+        out.height.px = 384, params.src = "yti2a, exercise = TRUE", 
+        fig.num = 0L, exercise.df_print = "paged"), engine = "r"), class = "tutorial_exercise"))
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
@@ -797,15 +793,17 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
 "gradethis::gradethis_setup()", "knitr::opts_chunk$set(echo = FALSE)", 
 "tutorial_options(", "  exercise.blanks = TRUE, ", "  exercise.reveal_solution = FALSE", 
 ")"), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
-    chunks = list(list(label = "ex5b", code = "proportions(table(sample_blood)) ", 
+    chunks = list(list(label = "ex5b", code = "bloodtypes <- c(_____,_____,_____,_____)\nprob_bloodtypes <- c(_____,_____,_____,_____)\nsample_blood <- sample(x =________________, size =_____, prob=________, replace=_____)\n\nproportions(table(_____)) ", 
         opts = list(label = "\"ex5b\"", exercise = "TRUE"), engine = "r")), 
-    code_check = NULL, error_check = NULL, check = structure("", chunk_opts = list(
-        label = "ex5b-check")), solution = structure("proportions(table(sample_blood)) ", chunk_opts = list(
-        label = "ex5b-solution")), options = list(eval = FALSE, 
-        echo = TRUE, results = "markup", tidy = FALSE, tidy.opts = NULL, 
-        collapse = FALSE, prompt = FALSE, comment = NA, highlight = FALSE, 
-        size = "normalsize", background = "#F7F7F7", strip.white = TRUE, 
-        cache = 0, cache.path = "math350_lrt_3_1_Probability_Mass_Functions_cache/html/", 
+    code_check = NULL, error_check = NULL, check = structure("grade_code()", chunk_opts = list(
+        label = "ex5b-check")), solution = structure(c("bloodtypes <- c(O,A,B,AB)", 
+    "prob_bloodtypes <- c(0.45,0.4,0.11,0.04)", "sample_blood <- sample(x =bloodtypes_, size = 30, prob=prob_bloodtypes, replace=TRUE)", 
+    "proportions(table(sample_blood)) "), chunk_opts = list(label = "ex5b-solution")), 
+    options = list(eval = FALSE, echo = TRUE, results = "markup", 
+        tidy = FALSE, tidy.opts = NULL, collapse = FALSE, prompt = FALSE, 
+        comment = NA, highlight = FALSE, size = "normalsize", 
+        background = "#F7F7F7", strip.white = TRUE, cache = 0, 
+        cache.path = "math350_lrt_3_1_Probability_Mass_Functions_cache/html/", 
         cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
         autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
         fig.show = "asis", fig.align = "default", fig.path = "math350_lrt_3_1_Probability_Mass_Functions_files/figure-html/", 
@@ -820,8 +818,10 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
         max.print = 1000, exercise.timelimit = 60, exercise.checker = "function (label = NULL, solution_code = NULL, user_code = NULL, \n    check_code = NULL, envir_result = NULL, evaluate_result = NULL, \n    envir_prep = NULL, last_value = NULL, stage = NULL, ...) \n{\n    (utils::getFromNamespace(\"check_exercise\", \"gradethis\"))(label = label, \n        solution_code = solution_code, user_code = user_code, \n        check_code = check_code, envir_result = envir_result, \n        evaluate_result = evaluate_result, envir_prep = envir_prep, \n        last_value = last_value, stage = stage, ...)\n}", 
         exercise.error.check.code = "gradethis_error_checker()", 
         exercise.blanks = TRUE, exercise.reveal_solution = FALSE, 
-        label = "ex5b", exercise = TRUE, code = "proportions(table(sample_blood)) ", 
-        out.width.px = 624, out.height.px = 384, params.src = "ex5b, exercise = TRUE", 
+        label = "ex5b", exercise = TRUE, code = c("bloodtypes <- c(_____,_____,_____,_____)", 
+        "prob_bloodtypes <- c(_____,_____,_____,_____)", "sample_blood <- sample(x =________________, size =_____, prob=________, replace=_____)", 
+        "", "proportions(table(_____)) "), out.width.px = 624, 
+        out.height.px = 384, params.src = "ex5b, exercise = TRUE", 
         fig.num = 0, exercise.df_print = "paged"), engine = "r"), class = "tutorial_exercise"))
 </script>
  
@@ -840,11 +840,19 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
 ")"), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
     chunks = list(list(label = "yti3a", code = "", opts = list(
         label = "\"yti3a\"", exercise = "TRUE"), engine = "r")), 
-    code_check = NULL, error_check = NULL, check = structure(c("yti3a.answer.space<-___", 
-    "grade_this({", " ", "})", ""), chunk_opts = list(label = "yti3a-check")), 
-    solution = NULL, options = list(eval = FALSE, echo = TRUE, 
-        results = "markup", tidy = FALSE, tidy.opts = NULL, collapse = FALSE, 
-        prompt = FALSE, comment = NA, highlight = FALSE, size = "normalsize", 
+    code_check = NULL, error_check = NULL, check = structure(c("colors <- c(\"Y\",\"R\",\"O\",\"Br\",\"G\",\"Bl\")", 
+    "prob_mnms <- c(.14,.13,.2,.12,.2,.21)", "", "mm.green.ans.space <- replicate(100, {", 
+    "  not.green <- replicate(10000,{", "    mnm_sample <- sample(colors, 50, prob=prob_mnms, replace=TRUE)", 
+    "    mnm_sample !=\"G\"", "  })", "  mean(not.green)", "})", 
+    "", "grade_this({", " ", "})", "", "grade_this({", "  if (.result > min(mm.green.ans.space) & ", 
+    "      .result < max(mm.green.ans.space)) {", "    pass(\"Great work!\")", 
+    "  }", "  ", "  if (.result > max(mm.green.ans.space)) {", 
+    "    fail(\"Your answer is a bit high\")", "  }", "  if (.result < min(mm.green.ans.space)) {", 
+    "    fail(\"Your answer is a bit low\")", "  }", "  fail()", 
+    "})"), chunk_opts = list(label = "yti3a-check")), solution = NULL, 
+    options = list(eval = FALSE, echo = TRUE, results = "markup", 
+        tidy = FALSE, tidy.opts = NULL, collapse = FALSE, prompt = FALSE, 
+        comment = NA, highlight = FALSE, size = "normalsize", 
         background = "#F7F7F7", strip.white = TRUE, cache = 0, 
         cache.path = "math350_lrt_3_1_Probability_Mass_Functions_cache/html/", 
         cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
@@ -881,11 +889,19 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
 ")"), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
     chunks = list(list(label = "yti3b", code = "", opts = list(
         label = "\"yti3b\"", exercise = "TRUE"), engine = "r")), 
-    code_check = NULL, error_check = NULL, check = structure(c("yti3b.answer.space<-___", 
-    "grade_this({", " ", "})", ""), chunk_opts = list(label = "yti3b-check")), 
-    solution = NULL, options = list(eval = FALSE, echo = TRUE, 
-        results = "markup", tidy = FALSE, tidy.opts = NULL, collapse = FALSE, 
-        prompt = FALSE, comment = NA, highlight = FALSE, size = "normalsize", 
+    code_check = NULL, error_check = NULL, check = structure(c("colors <- c(\"Y\",\"R\",\"O\",\"Br\",\"G\",\"Bl\")", 
+    "prob_mnms <- c(.14,.13,.2,.12,.2,.21)", "", "mm.roy.ans.space <- replicate(100, {", 
+    "  roy <- replicate(10000,{", "    mnm_sample <- sample(colors, 50, prob=prob_mnms, replace=TRUE)", 
+    "    mnm_sample %in% c(\"R\", \"O\", \"Y\")", "  })", "  mean(roy)", 
+    "})", "", "grade_this({", " ", "})", "", "grade_this({", 
+    "  if (.result > min(mm.roy.ans.space) & ", "      .result < max(mm.roy.ans.space)) {", 
+    "    pass(\"Great work!\")", "  }", "  ", "  if (.result > max(mm.roy.ans.space)) {", 
+    "    fail(\"Your answer is a bit high\")", "  }", "  if (.result < min(mm.roy.ans.space)) {", 
+    "    fail(\"Your answer is a bit low\")", "  }", "  fail()", 
+    "})"), chunk_opts = list(label = "yti3b-check")), solution = NULL, 
+    options = list(eval = FALSE, echo = TRUE, results = "markup", 
+        tidy = FALSE, tidy.opts = NULL, collapse = FALSE, prompt = FALSE, 
+        comment = NA, highlight = FALSE, size = "normalsize", 
         background = "#F7F7F7", strip.white = TRUE, cache = 0, 
         cache.path = "math350_lrt_3_1_Probability_Mass_Functions_cache/html/", 
         cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
@@ -920,7 +936,6 @@ encoder_logic()
 {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages","version"]},"class":{"type":"character","attributes":{},"value":["data.frame"]},"row.names":{"type":"integer","attributes":{},"value":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45]}},"value":[{"type":"character","attributes":{},"value":["backports","base","bslib","checkmate","compiler","curl","datasets","digest","ellipsis","evaluate","fastmap","gradethis","graphics","grDevices","htmltools","htmlwidgets","httpuv","jquerylib","jsonlite","knitr","later","learnr","learnrhash","lifecycle","magrittr","markdown","methods","mime","promises","R6","Rcpp","rlang","rmarkdown","rprojroot","sass","shiny","stats","stringi","stringr","tools","utils","withr","xfun","xtable","yaml"]},{"type":"character","attributes":{},"value":["1.4.1","4.1.0","0.3.1","2.0.0","4.1.0","4.3.1","4.1.0","0.6.29","0.3.2","0.14","1.1.0","0.2.4.9000","4.1.0","4.1.0","0.5.2","1.5.4","1.6.4","0.1.4","1.7.2","1.37","1.3.0","0.10.1.9017","0.2.0","1.0.1","2.0.1","1.1","4.1.0","0.12","1.2.0.1","2.5.1","1.0.7","0.4.12","2.11","2.0.2","0.4.0","1.7.1","4.1.0","1.7.6","1.4.0","4.1.0","4.1.0","2.4.3","0.29","1.8-4","2.2.1"]}]}]}
 </script>
 <!--/html_preserve-->
-</div>
 </div>
 
 </div> <!-- topics -->
