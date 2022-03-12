@@ -255,9 +255,9 @@ sample_blood[1:10] #quick peek to confirm
 ```
 
 ```{r ex5a-solution}
-bloodtypes <- c(O,A,B,AB)
+bloodtypes <- c("O","A","B","AB")
 prob_bloodtypes <- c(0.45,0.4,0.11,0.04)
-sample_blood <- sample(x =bloodtypes_, size = 30, prob=prob_bloodtypes, replace=TRUE)
+sample_blood <- sample(x =bloodtypes, size = 30, prob=prob_bloodtypes, replace=TRUE)
 sample_blood[1:10]
 ```
 
