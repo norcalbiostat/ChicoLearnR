@@ -1,0 +1,227 @@
+---
+title: 'Section 3.2: Expected Value and Variance'
+output: 
+    learnr::tutorial:
+      progressive: true
+      allow_skip: true
+tutorial:
+      id: math350_lrt_3_2_Exp_Var
+      version: 1 # change the version when you want to invalidate past progress
+runtime: shiny_prerendered
+description: > 
+  Explore summary measures such as the average and variability of probability distributions. This theory applies to all probability distributions.
+
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(gradethis)
+library(learnrhash)
+gradethis::gradethis_setup()
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Expected Value
+```{r quiz1, exercise.reveal_solution=TRUE}
+quiz(caption = "Two books are assigned for a statistics class: a textbook costing $137 and its corresponding study guide costing $33. The university bookstore determined 20% of enrolled students do not buy either book, 55% buy the textbook only, and 25% buy both books, and these percentages are relatively constant from one term to another.", 
+     
+  question("What is an appropriate definition for a random variable X?",
+    answer("How much a single student will spend on their course materials.", correct = TRUE),
+    answer("What percent of students bought two textbooks?"),
+    answer("A student bought a textbook"),
+    answer("How many books a single student purchased", correct=TRUE),
+    random_answer_order = TRUE), 
+  
+  question("If we let the random variable $X$ denote how much a single student will spend on their course materials, mark all the valid values of X.",
+    answer("0", correct = TRUE),
+    answer("33"),
+    answer("137", correct = TRUE),
+    answer("170", correct=TRUE)), 
+  
+  question("What is P(X=170)?",
+    answer("0"),
+    answer(".2"),
+    answer(".55"),
+    answer(".25", correct=TRUE))
+)
+```
+
+Calculate E(X)
+
+```{r ex1, exercise = TRUE}
+
+```
+
+```{r ex1-check}
+ans <- 0 * .20 + 137 *.55 + 170*.25
+
+grade_result(pass_if(~identical(.result, ans)))
+```
+
+Confirm your results using simulation.
+
+```{r ex2, exercise=TRUE}
+dollars <- _____
+prob <- ____
+spend <- sample(____, size=____, prob=____, replace=TRUE)
+mean(____)
+```
+
+```{r ex2-solution}
+dollars <- c(0, 137, 170)
+prob <- c(.2, .55, .25)
+spend <- sample(dollars, size=10000, prob=prob, replace=TRUE)
+mean(spend)
+```
+
+```{r ex2-check}
+grade_code()
+```
+
+### You try it:
+
+A retirement portfolio's value increases by 18% during a financial boom and by 9% during normal times. It decreases by 12% during a recession. What is the expected return on this portfolio if each scenario is equally likely? Let $X$ be the change in portfolio value.
+
+Calculate the theoretical expected value. 
+
+```{r yti1_theo, exercise = TRUE}
+
+```
+
+```{r yti1_theo-check}
+ans <- 18*1/3 + 9*1/3  - 12*1/3
+
+grade_result(pass_if(~identical(.result, ans)))
+```
+
+Confirm using simulation.
+
+```{r yti1_sim, exercise=TRUE}
+
+```
+
+```{r yti1_sim-check}
+value <- c(18, 9, -12)
+portfolio.change <- sample(value, size=10000, replace=TRUE)
+mean(portfolio.change)
+
+grade_this({
+  if ( abs(sum(.result - sum.balls)) <.01 ) {
+    pass("Great work!")
+  }
+  fail()
+})
+
+```
+
+
+## Variance and standard deviation
+
+### Example
+
+Let's return to the statistics book example and calculate the theoretical $Var(X)$ and $SD(X)$. 
+
+```{r ex3_theo, exercise=TRUE}
+x <- _____
+p.x <- _____
+(x.minus.mu <- x - _____)
+(var.dollars <- sum(_____))
+sqrt(_____)
+```
+
+```{r ex3_theo-solution}
+x <- c(0, 137, 170)
+p.x <- c(.2, .55, .25)
+(x.minus.mu <- x - 117.85)
+(var.dollars <- sum(x.minus.mu^2 * p.x))
+sqrt(var.dollars)
+```
+
+```{r ex3_theo-check}
+grade_code()
+```
+
+
+Confirm via Simulation
+
+```{r ex3_sim, exercise=TRUE}
+x <- _____
+p.x <- ______
+spend <- sample(______, size=______, prob=______, replace=TRUE)
+var(______)
+```
+
+```{r ex3_sim-solution}
+x <- c(0, 137, 170)
+p.x <- c(.2, .55, .25)
+spend <- sample(x, size=10000, prob=p.x, replace=TRUE)
+var(spend)
+```
+
+```{r ex3_sim-check}
+grade_code()
+```
+
+### You try it
+
+Return to the retirement portfolio question. Calculate the theoretical standard deviation. Use R as a calculator and don't round your answer. 
+
+```{r yti2_theo_sd, exercise=TRUE}
+
+```
+
+```{r yti2_theo_sd-check}
+value.chg <- c(18, 9, -12)
+p.chg <- 1/3
+mean.chg <- sum(value.chg * p.chg)
+var.chg <- sum((value.chg-mean.chg)^2 * p.chg)
+sd.chg <- sqrt(var.chg)
+
+grade_this({
+  if ( abs(sum(.result - sd.chg)) <.001 ) {
+    pass("Great work!")
+  }
+  fail("Did you just type in a number?")
+})
+
+```
+
+Confirm via simulation
+
+```{r yti2_sim_sd, exercise=TRUE}
+
+```
+
+```{r yti2_sim_sd-check}
+value <- c(18, 9, -12)
+portfolio.change <- sample(value, size=10000, replace=TRUE)
+sd(portfolio.change)
+
+grade_this({
+  if ( abs(sum(.result - sum.balls)) <.01 ) {
+    pass("Great work!")
+  }
+  fail()
+})
+
+```
+
+## Submit your work
+Part of your grade in this class comes from submitting tutorial work like this. 
+
+Click the <kbd>Generate</kbd> button below to generate a hash for you assignment. This long string of numbers is a unique code for you, and this assignment. 
+
+Paste this code into the Google Form below to submit your hash to the instructional team for scoring. You also have the opportunity to provide feedback and thoughts about the specific lesson. This is valuable information for the instructional team to know what topics were confusing for students or where extra help is needed. 
+
+```{r context="server"}
+encoder_logic()
+```
+
+```{r encode, echo=FALSE}
+encoder_ui(default_ui(url = "https://forms.gle/jVdZw6biVXEzGXDE9"))
+```
+
+
+
+
+
