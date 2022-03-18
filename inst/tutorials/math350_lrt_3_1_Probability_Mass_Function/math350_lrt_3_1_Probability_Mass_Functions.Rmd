@@ -306,14 +306,15 @@ mm.green.ans.space <- replicate(100, {
 tol <- IQR(mm.green.ans.space)
 
 grade_this({
+  if (.result == .8 ) {
+    fail("This looks like the theoretical probability. Did you use simulation to answer this question?")
+   }
+  
   if ((.result > min(mm.green.ans.space) - 1.5*tol) & 
       (.result < max(mm.green.ans.space) + 1.5*tol)) {
     pass("Great work!")
   }
-   if (.result == .8 ) {
-    fail("Did you use simulation to answer this question?")
-   }
-  
+
   if (.result > max(mm.green.ans.space) + 1.5*tol) {
     fail("Your answer is a bit high")
   }
@@ -346,13 +347,14 @@ mm.roy.ans.space <- replicate(100, {
 tol <- IQR(mm.roy.ans.space)
 
 grade_this({
+  if (.result == .47 ) {
+    fail("This looks like the theoretical probability. Did you use simulation to answer this question?")
+  }
   if ((.result > min(mm.roy.ans.space) - 1.5*tol) & 
       (.result < max(mm.roy.ans.space) + 1.5*tol)) {
     pass("Great work!")
   }
-  if (.result == .47 ) {
-    fail("Did you use simulation to answer this question?")
-   }
+
   if (.result > max(mm.roy.ans.space) + 1.5*tol) {
     fail("Your answer is a bit high")
   }

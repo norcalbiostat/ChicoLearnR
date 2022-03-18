@@ -69,7 +69,7 @@ mean(____)
 
 ```{r ex2-solution}
 dollars <- c(0, 137, 170)
-prob <- c(.2, .55, .25)
+prob.dollars <- c(.2, .55, .25)
 spend <- sample(dollars, size=10000, prob=prob.dollars, replace=TRUE)
 mean(spend)
 ```
@@ -131,11 +131,12 @@ grade_this({
 
 ### Example
 
-Let's return to the statistics book example and calculate the theoretical $Var(X)$ and $SD(X)$. 
+Let's return to the statistics book example and calculate the theoretical $SD(X)$. 
 
 ```{r ex3_theo, exercise=TRUE}
 x <- _____
 p.x <- _____
+mu <- ____
 (x.minus.mu <- x - _____)
 (var.dollars <- sum(_____))
 sqrt(_____)
@@ -144,7 +145,8 @@ sqrt(_____)
 ```{r ex3_theo-solution}
 x <- c(0, 137, 170)
 p.x <- c(.2, .55, .25)
-(x.minus.mu <- x - 117.85)
+mu <- sum(x*p.x)
+(x.minus.mu <- x - mu)
 (var.dollars <- sum(x.minus.mu^2 * p.x))
 sqrt(var.dollars)
 ```
@@ -154,20 +156,20 @@ grade_code()
 ```
 
 
-Confirm via Simulation
+Confirm via simulation.
 
 ```{r ex3_sim, exercise=TRUE}
 x <- _____
 p.x <- ______
 spend <- sample(______, size=______, prob=______, replace=TRUE)
-var(______)
+sd(______)
 ```
 
 ```{r ex3_sim-solution}
 x <- c(0, 137, 170)
 p.x <- c(.2, .55, .25)
 spend <- sample(x, size=10000, prob=p.x, replace=TRUE)
-var(spend)
+sd(spend)
 ```
 
 ```{r ex3_sim-check}
