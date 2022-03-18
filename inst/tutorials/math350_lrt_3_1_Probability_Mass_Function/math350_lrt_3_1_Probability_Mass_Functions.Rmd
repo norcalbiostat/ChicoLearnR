@@ -270,7 +270,7 @@ proportions(table(_____))
 ```
 
 ```{r ex5b-solution}
-bloodtypes <- c(O,A,B,AB)
+bloodtypes <- c("O","A","B","AB")
 prob_bloodtypes <- c(0.45,0.4,0.11,0.04)
 sample_blood <- sample(x = bloodtypes, size = 30, prob = prob_bloodtypes, replace=TRUE)
 proportions(table(sample_blood)) 
