@@ -310,6 +310,9 @@ grade_this({
       (.result < max(mm.green.ans.space) + 1.5*tol)) {
     pass("Great work!")
   }
+   if (.result == .8 ) {
+    fail("Did you use simulation to answer this question?")
+   }
   
   if (.result > max(mm.green.ans.space) + 1.5*tol) {
     fail("Your answer is a bit high")
@@ -347,7 +350,9 @@ grade_this({
       (.result < max(mm.roy.ans.space) + 1.5*tol)) {
     pass("Great work!")
   }
-  
+  if (.result == .47 ) {
+    fail("Did you use simulation to answer this question?")
+   }
   if (.result > max(mm.roy.ans.space) + 1.5*tol) {
     fail("Your answer is a bit high")
   }
