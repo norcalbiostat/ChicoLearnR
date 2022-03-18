@@ -215,29 +215,21 @@ Estimate the pmf of $X$.
 ```{r challenge-check}
 bag <- c(rep(-1, 50), rep(1, 50))
 
-walk.space <- replicate(100,{
-  rand.walk <- replicate(10000,{
-    steps <- sample(bag)
-    walk <- cumsum(steps)
-    where.zero <- which(walk==0)
-    ans <- min(where.zero)
-  })
-  mean(rand.walk)
+rand.walk <- replicate(10000,{
+  steps <- sample(bag)
+  walk <- cumsum(steps)
+  where.zero <- which(walk==0)
+  ans <- min(where.zero)
 })
 
-tol <- IQR(walk.space)
+rand.walk.pmf <- proportions(table(rand.walk))
 
 grade_this({
-  if ((.result > min(walk.space) - 1.5*tol) & 
-      (.result < max(walk.space) + 1.5*tol)) {
+  if (length(.result) != length(rand.walk.pmf)) {
+    fail("Incorrect space of the random variable. Did you create a pmf as a table of proportions?")
+  }
+  if ( abs(sum(.result - rand.walk.pmf)) <.01 ) {
     pass("Great work!")
-  }
-  
-  if (.result > max(walk.space) + 1.5*tol) {
-    fail("Your answer is a bit high")
-  }
-  if (.result < min(walk.space) - 1.5*tol) {
-    fail("Your answer is a bit low")
   }
   fail()
 })
