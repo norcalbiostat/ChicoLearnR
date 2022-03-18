@@ -262,7 +262,7 @@ p.d3 <- ___
 ```
 
 ```{r ex9-check}
-grade_result(pass_if(~identical(.result,2, .47)))
+grade_result(pass_if(~identical(round(.result,2), .47)))
 ```
 
 ### You try it
@@ -335,7 +335,7 @@ encoder_logic()
 ```
 
 ```{r encode, echo=FALSE}
-encoder_ui(default_ui(url = ""))
+encoder_ui(default_ui(url = "https://forms.gle/UBF7nbkAV8bybwra9"))
 ```
 
 

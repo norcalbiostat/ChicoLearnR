@@ -162,7 +162,7 @@ nheads.soln <- proportions(table(coin_toss))
 
 grade_this({
   if (length(.result) != length(nheads.soln)) {
-    fail("Incorrect space of the random variable. Did you use sufficient replications?")
+    fail("Incorrect space of the random variable. Did you create a pmf as a table of proportions?")
   }
   if ( abs(sum(.result - nheads.soln)) <.01 ) {
     pass("Great work!")
@@ -189,7 +189,7 @@ sum.balls <- proportions(table(x))
 
 grade_this({
   if (length(.result) != length(sum.balls)) {
-    fail("Incorrect space of the random variable. Did you use sufficient replications?")
+    fail("Incorrect space of the random variable. Did you create a pmf as a table of proportions?")
   }
   if ( abs(sum(.result - sum.balls)) <.01 ) {
     pass("Great work!")
@@ -225,16 +225,18 @@ walk.space <- replicate(100,{
   mean(rand.walk)
 })
 
+tol <- IQR(walk.space)
+
 grade_this({
-  if (.result > min(walk.space) & 
-      .result < max(walk.space)) {
+  if ((.result > min(walk.space) - 1.5*tol) & 
+      (.result < max(walk.space) + 1.5*tol)) {
     pass("Great work!")
   }
   
-  if (.result > max(walk.space)) {
+  if (.result > max(walk.space) + 1.5*tol) {
     fail("Your answer is a bit high")
   }
-  if (.result < min(walk.space)) {
+  if (.result < min(walk.space) - 1.5*tol) {
     fail("Your answer is a bit low")
   }
   fail()
@@ -278,7 +280,7 @@ proportions(table(_____))
 ```{r ex5b-solution}
 bloodtypes <- c(O,A,B,AB)
 prob_bloodtypes <- c(0.45,0.4,0.11,0.04)
-sample_blood <- sample(x =bloodtypes_, size = 30, prob=prob_bloodtypes, replace=TRUE)
+sample_blood <- sample(x = bloodtypes, size = 30, prob = prob_bloodtypes, replace=TRUE)
 proportions(table(sample_blood)) 
 ```
 
@@ -309,20 +311,18 @@ mm.green.ans.space <- replicate(100, {
   mean(not.green)
 })
 
-grade_this({
- 
-})
+tol <- IQR(mm.green.ans.space)
 
 grade_this({
-  if (.result > min(mm.green.ans.space) & 
-      .result < max(mm.green.ans.space)) {
+  if ((.result > min(mm.green.ans.space) - 1.5*tol) & 
+      (.result < max(mm.green.ans.space) + 1.5*tol)) {
     pass("Great work!")
   }
   
-  if (.result > max(mm.green.ans.space)) {
+  if (.result > max(mm.green.ans.space) + 1.5*tol) {
     fail("Your answer is a bit high")
   }
-  if (.result < min(mm.green.ans.space)) {
+  if (.result < min(mm.green.ans.space) - 1.5*tol) {
     fail("Your answer is a bit low")
   }
   fail()
@@ -348,20 +348,18 @@ mm.roy.ans.space <- replicate(100, {
   mean(roy)
 })
 
-grade_this({
- 
-})
+tol <- IQR(mm.roy.ans.space)
 
 grade_this({
-  if (.result > min(mm.roy.ans.space) & 
-      .result < max(mm.roy.ans.space)) {
+  if ((.result > min(mm.roy.ans.space) - 1.5*tol) & 
+      (.result < max(mm.roy.ans.space) + 1.5*tol)) {
     pass("Great work!")
   }
   
-  if (.result > max(mm.roy.ans.space)) {
+  if (.result > max(mm.roy.ans.space) + 1.5*tol) {
     fail("Your answer is a bit high")
   }
-  if (.result < min(mm.roy.ans.space)) {
+  if (.result < min(mm.roy.ans.space) - 1.5*tol) {
     fail("Your answer is a bit low")
   }
   fail()
