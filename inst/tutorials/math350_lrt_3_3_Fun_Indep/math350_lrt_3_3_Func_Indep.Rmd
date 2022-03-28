@@ -1,0 +1,306 @@
+---
+title: "Section 3.3 Functions of random variables (Speegle 3.4)"
+output: 
+    learnr::tutorial:
+      progressive: true
+      allow_skip: true
+runtime: shiny_prerendered
+description: > 
+  Often times it's not the random variable X that we care about, but some function, like the mean or squared value of X. Here we explore functions of random variables. 
+  
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(gradethis)
+library(learnrhash)
+gradethis::gradethis_setup()
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Functions of Random Variables
+
+### Example
+
+Let $X = {-2, -1, 0, 1, 2}$, all equally likely and $y = g(x) = X^{2}$. What is the pmf of y? 
+
+```{r ex1a, exercise = TRUE}
+y <- ____ 
+p.y <- ____
+```
+
+```{r ex1a-solution}
+y <- c(0, 1, 4)
+p.y <- c(.2, .4, .4)
+```
+
+```{r ex1a-check}
+grade_this_code()
+```
+
+Estimate the pmf of y using simulation. 
+```{r ex1a_sim, exercise = TRUE}
+X <- ____
+sample.x <- sample(____, 10000, replace=TRUE) 
+y <- _____
+proportions(table(____)) 
+```
+
+```{r ex1a_sim-solution}
+X <- c(-2, -1, 0, 1, 2)
+sample.x <- sample(X, 10000, replace=TRUE) 
+y <- sample.x^2
+proportions(table(y)) 
+```
+
+```{r ex1a_sim-check}
+grade_this_code()
+```
+
+Calculate the theoretical $E(Y)$. 
+
+```{r ex1b,  exercise = TRUE}
+y <- ____ 
+p.y <- ____
+sum(____ * ____)
+```
+
+```{r ex1b-check}
+y <- c(0, 1, 4)
+p.y <- c(.2, .4, .4)
+answer <- y%*%p.y
+
+grade_result(pass_if(~identical(as.numeric(.result), 2)))
+```
+
+Estimate $E(X)$ via simulation.
+
+```{r ex1c, exercise = TRUE}
+X <- ____
+sample.x <- sample(__, _____, replace=TRUE) 
+y <- ____ 
+mean(____) 
+```
+
+```{r ex1c-check}
+X <- c(-2, -1, 0, 1, 2)
+
+ex1c.space <- replicate(100,{
+  sample.x <- sample(X, 10000, replace=TRUE) 
+  y <- sample.x^2 
+  mean(y)
+})
+
+tol.ex1c <- IQR(ex1c.space)
+
+grade_this({
+  if ((.result > min(ex1c.space) - 1.5*tol.ex1c) & 
+      (.result < max(ex1c.space) + 1.5*tol.ex1c)) {
+    pass("Great work!")
+  }
+  
+  if (.result > max(ex1c.space) + 1.5*tol.ex1c) {
+    fail("Your answer is a bit high")
+  }
+  if (.result < min(ex1c.space) - 1.5*tol.ex1c) {
+    fail("Your answer is a bit low")
+  }
+  fail()
+})
+```
+
+### You try it.
+
+Using the random variable $X$ in the above example, let $Y = 2X+1$. Find the theoretical pmf of $Y$. 
+
+```{r yti1a, exercise = TRUE}
+y <- ____ 
+p.y <- ____
+```
+
+```{r yti1a-solution}
+y <- c(-3, -1, 1, 3, 5)
+p.y <- c(.2, .2, .2, .2, .2)
+```
+
+```{r yti1a-check}
+grade_this_code()
+```
+
+
+Estimate the pmf of y using simulation. 
+```{r yti1a_sim, exercise = TRUE}
+X <- ____
+sample.x <- sample(____, 10000, replace=TRUE) 
+y <- _____
+proportions(table(____)) 
+```
+
+```{r yti1a_sim-solution}
+X <- c(-2, -1, 0, 1, 2)
+sample.x <- sample(X, 10000, replace=TRUE) 
+y <- 2*sample.x + 1 
+proportions(table(y)) 
+```
+
+```{r yti1a_sim-check}
+grade_this_code()
+```
+
+Find the theoretical $E(Y)$. Let R be your calculator
+
+```{r yti1b, exercise = TRUE}
+
+```
+
+```{r yti1b-check}
+grade_result(pass_if(~identical(as.numeric(.result), 1)))
+```
+
+Estimate $E(Y)$ via simulation
+
+```{r yti1b_sim, exercise = TRUE}
+X <- c(-2, -1, 0, 1, 2)
+sample.x <- sample(X, 10000, replace=TRUE) 
+y <- 2*sample.x + 1
+mean(y) 
+```
+
+```{r yti1b_sim-check}
+X <- c(-2, -1, 0, 1, 2)
+
+ans.space <- replicate(100,{
+  sample.x <- sample(X, 10000, replace=TRUE) 
+  y <- 2*sample.x+1
+  mean(y)
+})
+
+tol <- IQR(ans.space)
+
+grade_this({
+  if ((.result > min(ans.space) - 1.5*tol) & 
+      (.result < max(ans.space) + 1.5*tol)) {
+    pass("Great work!")
+  }
+  
+  if (.result > max(ans.space) + 1.5*tol) {
+    fail("Your answer is a bit high")
+  }
+  if (.result < min(ans.space) - 1.5*tol.yti1c) {
+    fail("Your answer is a bit low")
+  }
+  fail()
+})
+```
+
+
+### You try it
+For the following questions, use R as a calculator. 
+
+1.  Let $E(X) = 2$. Find $E(3X-1)$. 
+
+```{r yti2a, exercise = TRUE }
+
+```
+
+
+```{r yti2a-check}
+grade_result(pass_if(~identical(.result,5)))
+```
+
+2.  What is $E(2)$?
+
+```{r yti2b, exercise = TRUE }
+
+```
+
+
+```{r yti2b-check}
+grade_result(pass_if(~identical(.result,2)))
+```
+
+3.  Find $E(2X-3Y)$ when $E(X) = -4$ and $E(Y)=1$
+
+```{r yti2c, exercise = TRUE }
+
+```
+
+
+```{r yti2c-check}
+grade_result(pass_if(~identical(.result,-11)))
+```
+
+## Variance
+
+### Example
+
+Let $X = {-2, -1, 0, 1, 2}$, all values equally likely. Calculate $Var(X)$ using the alternative method to calculate variance: $E(X^{2}) - E(X)^2$. 
+
+```{r ex2a, exercise = TRUE}
+x <- ____
+p.x <- ____
+E_X <- sum(____ * ____)
+E_Xsq <- sum(____* ____)
+Var_x <- ____ - ___^2
+```
+
+```{r ex2a-solution}
+x <- c(-2, -1, 0, 1, 2)
+p.x <- c(.2, .2, .2, .2, .2)
+E_X <- sum(x*p.x)
+E_Xsq <- sum(x^2*p.x)
+Var_x <- E_Xsq - E_X^2
+```
+
+```{r ex2a-check}
+grade_this_code()
+```
+
+### You try it
+
+Let X be a random variable with values $x = {0, 1, 2}$ and $p(x) = {.1, .5, .4}$.  Calculate $Var(X)$ using the alternative method to calculate variance: $E(X^{2}) - E(X)^2$.
+
+```{r yti2,  exercise = TRUE}
+
+```
+
+```{r yti2-check}
+x <- c(0, 1, 2)
+p.x <- c(.1, .5, .4)
+E_X <- sum(x*p.x)
+E_Xsq <- sum(x^2*p.x)
+Var_x <- E_Xsq - E_X^2
+
+grade_result(pass_if(~identical(as.numeric(.result), Var_x)))
+```
+
+
+## Submit your work
+Part of your grade in this class comes from submitting tutorial work like this. 
+
+Click the <kbd>Generate</kbd> button below to generate a hash for you assignment. This long string of numbers is a unique code for you, and this assignment. 
+
+Paste this code into the Google Form below to submit your hash to the instructional team for scoring. You also have the opportunity to provide feedback and thoughts about the specific lesson. This is valuable information for the instructional team to know what topics were confusing for students or where extra help is needed. 
+
+```{r context="server"}
+encoder_logic()
+```
+
+```{r encode, echo=FALSE}
+encoder_ui(default_ui(url = "https://forms.gle/f2JqnTfQVM8ib5NN6"))
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
